@@ -3,6 +3,7 @@
   <component name="ContentModelStore">
     <e p="C:\Code\personal\DapperDiddle" t="IncludeFlat">
       <e p="DapperDiddle" t="IncludeRecursive">
+        <e p="BaseSqlExecutor.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Class1.cs" t="Include" />
         <e p="DapperDiddle.csproj" t="IncludeRecursive" />
