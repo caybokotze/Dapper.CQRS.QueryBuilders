@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using DapperDiddle.Enums;
+using DapperDiddle.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using MySql.Data.MySqlClient;
 

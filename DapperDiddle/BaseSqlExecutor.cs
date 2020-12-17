@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Data;
 using Dapper;
+using DapperDiddle.Interfaces;
 
 namespace DapperDiddle
 {
-    public interface IBaseSqlExecutor
-    {
-        T SelectQuery<T>(string sql, object parameters);
-        IDbConnection ReturnConnectionInstance();
-        int Execute(string sql, object parameters);
-    }
-    
     public class BaseSqlExecutor : IBaseSqlExecutor
     {
         public BaseSqlExecutor()
