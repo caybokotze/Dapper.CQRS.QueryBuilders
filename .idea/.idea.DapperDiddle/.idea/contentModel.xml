@@ -6,6 +6,8 @@
         <e p="BaseSqlExecutor.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Class1.cs" t="Include" />
+        <e p="Command.cs" t="Include" />
+        <e p="CommandExecutor.cs" t="Include" />
         <e p="DapperDiddle.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">

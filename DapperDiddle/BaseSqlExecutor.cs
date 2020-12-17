@@ -7,11 +7,6 @@ namespace DapperDiddle
     {
         private IDbConnection Connection { get; }
 
-        public BaseSqlExecutor(IDbConnection connection)
-        {
-            Connection = connection;
-        }
-
         public T SelectQuery<T>(string sql, object parameters = null)
         {
             return (T)Connection.Query(sql, parameters);
