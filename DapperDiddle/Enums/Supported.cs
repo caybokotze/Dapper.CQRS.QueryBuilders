@@ -1,7 +1,8 @@
 ﻿namespace DapperDiddle.Enums
 {
-    public enum DBMS
+    public enum Dbms
     {
-        
+        MySql,
+        MsSQL,
     }
 }
