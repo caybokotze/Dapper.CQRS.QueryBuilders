@@ -1,4 +1,6 @@
-﻿namespace DapperDiddle
+﻿using DapperDiddle.Interfaces;
+
+namespace DapperDiddle
 {
     public abstract class Query<T> : Query
     {

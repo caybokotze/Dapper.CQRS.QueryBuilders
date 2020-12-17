@@ -9,6 +9,10 @@
         <e p="Command.cs" t="Include" />
         <e p="CommandExecutor.cs" t="Include" />
         <e p="DapperDiddle.csproj" t="IncludeRecursive" />
+        <e p="Interfaces" t="Include">
+          <e p="ICommandExecutor.cs" t="Include" />
+          <e p="IQueryExecutor.cs" t="Include" />
+        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
@@ -16,6 +20,8 @@
             </e>
           </e>
         </e>
+        <e p="Query.cs" t="Include" />
+        <e p="QueryExecutor.cs" t="Include" />
       </e>
       <e p="DapperDiddle.sln" t="IncludeFlat" />
       <e p="DapperDiddle.Tests" t="IncludeRecursive">

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DapperDiddle.Interfaces;
 
 namespace DapperDiddle
 {
@@ -33,14 +34,5 @@ namespace DapperDiddle
                 t.Execute();
             }
         }
-    }
-
-    public interface ICommandExecutor
-    {
-        void Execute(Command command);
-
-        T Execute<T>(Command<T> command);
-
-        void Execute(IEnumerable<Command> commands);
     }
 }
