@@ -1,6 +1,5 @@
 ﻿using System;
 using DapperDoodle;
-using DapperDoodle.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TestRunner.Controllers
