@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Data;
-using System.Globalization;
 using System.Text;
 using DapperDiddle.Commands;
 using PluralizeService.Core;
@@ -10,17 +9,17 @@ namespace DapperDiddle
 {
     public static class CommandBuilders
     {
-        public static string BuildInsert<T>(this Command command)
+        public static string BuildInsertStatement<T>(this Command command)
         {
-            return BuildInsert<T>(command, null, Case.Lowercase);
+            return BuildInsertStatement<T>(command, null, Case.Lowercase);
         }
         
-        public static string BuildInsert<T>(this Command command, Case casing)
+        public static string BuildInsertStatement<T>(this Command command, Case casing)
         {
-            return BuildInsert<T>(command, null, casing);
+            return BuildInsertStatement<T>(command, null, casing);
         }
         
-        private static string BuildInsert<T>(this Command command, string table, Case casing)
+        private static string BuildInsertStatement<T>(this Command command, string table, Case casing)
         {
             var dt = typeof(T).ObjectToDataTable();
 
@@ -48,12 +47,12 @@ namespace DapperDiddle
             return sql.ToString();
         }
 
-        public static string BuildUpdate<T>(this T type)
+        public static string BuildUpdateStatement<T>(this T type)
         {
             return "";
         }
 
-        public static string BuildSelect<T>(this T type)
+        public static string BuildSelectStatement<T>(this T type)
         {
             return "";
         }
