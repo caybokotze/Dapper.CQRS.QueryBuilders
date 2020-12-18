@@ -9,7 +9,7 @@ namespace DapperDiddle.Interfaces
         Dbms Database { get; set; }
     }
 
-    public class BaseSqlExecutorDependencies : IBaseSqlExecutorOptions
+    public class BaseSqlExecutorOptions : IBaseSqlExecutorOptions
     {
         public string ConnectionString { get; set; }
         public Dbms Database { get; set; }

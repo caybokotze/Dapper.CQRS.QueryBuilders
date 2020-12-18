@@ -23,7 +23,7 @@ namespace DapperDiddle
                 }
                 case Dbms.Default:
                 {
-                    throw new ArgumentException("The database you have selected is not yet supported.");
+                    throw new ArgumentException("Invalid Database selection.");
                 }
                 default:
                 {
@@ -34,14 +34,17 @@ namespace DapperDiddle
 
         private static void ConfigureForMySql(
             this IServiceCollection services, 
-            string connectionString)
+            string connectionString,
+            Dbms database)
         {
             services.AddScoped<IBaseSqlExecutorOptions>(provider =>
-                new BaseSqlExecutorDependencies()
+                new BaseSqlExecutorOptions()
                 {
-                    ConnectionString = "LKaldkfj",
-                    Database = Dbms.MySql
+                    ConnectionString = connectionString,
+                    Database = database
                 });
+
+            services.AddScoped<ICommandExecutor, CommandExecutor>();
         }
     }
 
