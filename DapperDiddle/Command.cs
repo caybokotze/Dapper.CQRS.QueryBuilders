@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
+using DapperDiddle.Interfaces;
 
 namespace DapperDiddle
 {

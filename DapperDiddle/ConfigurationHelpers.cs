@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.IO;
 using DapperDiddle.Enums;
 using DapperDiddle.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +21,10 @@ namespace DapperDiddle
                     ConfigureForMySql(services, connectionString);
                     break;
                 }
+                case Dbms.Default:
+                {
+                    throw new ArgumentException("The database you have selected is not yet supported.");
+                }
                 default:
                 {
                     throw new ArgumentException("The database you have selected is not yet supported.");
@@ -31,9 +36,29 @@ namespace DapperDiddle
             this IServiceCollection services, 
             string connectionString)
         {
-            services.AddScoped<IBaseSqlExecutor>(provider =>
-                new BaseSqlExecutor(
-                    new MySqlConnection(connectionString)));
+            services.AddScoped<IBaseSqlExecutorOptions>(provider =>
+                new BaseSqlExecutorDependencies()
+                {
+                    ConnectionString = "LKaldkfj",
+                    Database = Dbms.MySql
+                });
+        }
+    }
+
+    public static class ServiceProviderFactory
+    {
+        public static IServiceProvider ServiceProvider { get; }
+
+        static ServiceProviderFactory()
+        {
+            // HostingEnvironment env = new HostingEnvironment();
+            // env.ContentRootPath = Directory.GetCurrentDirectory();
+            // env.EnvironmentName = "Development";
+            //
+            // Startup startup = new Startup(env);
+            // ServiceCollection sc = new ServiceCollection();
+            // startup.ConfigureServices(sc);
+            // ServiceProvider = sc.BuildServiceProvider();
         }
     }
 }

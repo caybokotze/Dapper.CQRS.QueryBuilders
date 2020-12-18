@@ -1,37 +1,42 @@
 ﻿using System;
 using System.Data;
+using System.Runtime.CompilerServices;
 using Dapper;
+using DapperDiddle.Enums;
 using DapperDiddle.Interfaces;
+using MySql.Data.MySqlClient;
 
 namespace DapperDiddle
 {
-    public class BaseSqlExecutor : IBaseSqlExecutor
+    public class BaseSqlExecutor
     {
-        public BaseSqlExecutor()
+        public void InitialiseDependencies(IBaseSqlExecutorOptions options)
         {
-            
+            _connection = new MySqlConnection(options.ConnectionString);
+            _database = options.Database;
         }
 
-        public BaseSqlExecutor(IDbConnection connection)
-        {
-            Connection = connection;
-        }
-        
-        private IDbConnection Connection { get; }
+        private IDbConnection _connection;
+        private Dbms _database;
 
         public T SelectQuery<T>(string sql, object parameters = null)
         {
-            return (T)Connection.Query(sql, parameters);
+            return (T)_connection.Query(sql, parameters);
         }
 
         public IDbConnection ReturnConnectionInstance()
         {
-            return Connection;
+            return _connection;
+        }
+
+        public string ReturnConnectionString()
+        {
+            return _connection.ConnectionString;
         }
 
         public int Execute(string sql, object parameters = null)
         {
-            return Connection.Execute(sql, parameters);
+            return _connection.Execute(sql, parameters);
         }
     }
 }
