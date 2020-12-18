@@ -2,10 +2,11 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RootNamespace>TestRunner</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DapperDiddle\DapperDiddle.csproj" />
+      <ProjectReference Include="..\DapperDoodle\DapperDoodle.csproj" />
     </ItemGroup>
 
 </Project>

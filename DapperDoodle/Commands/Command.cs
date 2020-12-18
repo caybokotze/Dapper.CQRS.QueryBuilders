@@ -1,10 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-
-namespace DapperDiddle.Commands
+﻿namespace DapperDiddle.Commands
 {
     public interface ICommand
     {
@@ -22,12 +16,12 @@ namespace DapperDiddle.Commands
 
         public int BuildInsert<T>()
         {
-            return Execute(this.BuildInsertStatement<T>(), typeof(T));
+            return SelectQuery<int>(this.BuildInsertStatement<T>(), typeof(T));
         }
 
         public int BuildInsert<T>(object parameters)
         {
-            return Execute(this.BuildInsertStatement<T>(), parameters);
+            return SelectQuery<int>(this.BuildInsertStatement<T>(), parameters);
         }
 
         /// <summary>

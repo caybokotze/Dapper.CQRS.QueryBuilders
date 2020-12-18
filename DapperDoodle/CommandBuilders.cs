@@ -57,7 +57,7 @@ namespace DapperDiddle
             }
 
             sqlStatement.Remove(sqlStatement.Length - 2, 2);
-            sqlStatement.Append(");");
+            sqlStatement.Append("); ");
 
             command.AppendReturnId(sqlStatement);
             
@@ -95,7 +95,9 @@ namespace DapperDiddle
             return PluralizationProvider.Pluralize(value);
         }
 
-        public static string AppendReturnId(this BaseSqlExecutor executor, StringBuilder builder)
+        public static string AppendReturnId(
+            this BaseSqlExecutor executor, 
+            StringBuilder builder)
         {
             switch (executor.Dbms)
             {
@@ -118,7 +120,9 @@ namespace DapperDiddle
             return builder.ToString();
         }
 
-        public static string AppendReturnId(this BaseSqlExecutor executor, string originalString)
+        public static string AppendReturnId(
+            this BaseSqlExecutor executor, 
+            string originalString)
         {
             var builder = new StringBuilder(originalString);
             return AppendReturnId(executor, builder);

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
-using DapperDiddle;
 using DapperDiddle.Commands;
 using DapperDiddle.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +32,7 @@ namespace TestRunner.Controllers
     {
         public override void Execute()
         {
-            BuildInsert<Person>();
+            Console.WriteLine(BuildInsert<Person>());
         }
     }
 
