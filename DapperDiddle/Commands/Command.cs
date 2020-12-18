@@ -1,8 +1,4 @@
-﻿using System;
-using System.Data;
-using DapperDiddle.Interfaces;
-
-namespace DapperDiddle
+﻿namespace DapperDiddle.Commands
 {
     public abstract class Command<T> : Command
     {

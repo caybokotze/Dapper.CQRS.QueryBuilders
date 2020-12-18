@@ -5,13 +5,13 @@ namespace DapperDiddle.Interfaces
 {
     public interface IBaseSqlExecutorOptions
     {
-        string ConnectionString { get; set; }
-        Dbms Database { get; set; }
+        IDbConnection Connection { get; set; }
+        DBMS Dbms { get; set; }
     }
 
     public class BaseSqlExecutorOptions : IBaseSqlExecutorOptions
     {
-        public string ConnectionString { get; set; }
-        public Dbms Database { get; set; }
+        public IDbConnection Connection { get; set; }
+        public DBMS Dbms { get; set; }
     }
 }

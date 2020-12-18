@@ -1,6 +1,6 @@
-﻿namespace DapperDiddle
+﻿namespace DapperDiddle.Queries
 {
-    public static class Builders
+    public static class QueryBuilders
     {
         public static string BuildInsert<T>(this T type)
         {

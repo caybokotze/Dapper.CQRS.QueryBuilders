@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Data;
-using System.IO;
+using DapperDiddle.Commands;
 using DapperDiddle.Enums;
 using DapperDiddle.Interfaces;
+using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.DependencyInjection;
 using MySql.Data.MySqlClient;
 
@@ -10,18 +10,24 @@ namespace DapperDiddle
 {
     public static class ConfigurationHelpers
     {
-        public static void ConfigureDapperDiddleForMySql(
+        public static void ConfigureDapperDiddle(
             this IServiceCollection services, 
-            string connectionString, Dbms database)
+            string connectionString,
+            DBMS dbms)
         {
-            switch (database)
+            if (services is null)
+                throw new NullReferenceException("The service collection Specified is invalid");
+            
+            ConfigureCqrsInterfaces(services);
+            
+            switch (dbms)
             {
-                case Dbms.MySql:
+                case DBMS.MySQL:
                 {
-                    ConfigureForMySql(services, connectionString);
+                    ConfigureForMySql(services, connectionString, dbms);
                     break;
                 }
-                case Dbms.Default:
+                case DBMS.SQLite:
                 {
                     throw new ArgumentException("Invalid Database selection.");
                 }
@@ -32,36 +38,39 @@ namespace DapperDiddle
             }
         }
 
+        private static void ConfigureCqrsInterfaces(this IServiceCollection services)
+        {
+            services.AddScoped<ICommandExecutor, CommandExecutor>();
+            services.AddScoped<IQueryExecutor, QueryExecutor>();
+        }
+
         private static void ConfigureForMySql(
-            this IServiceCollection services, 
+            this IServiceCollection services,
             string connectionString,
-            Dbms database)
+            DBMS dbms)
         {
             services.AddScoped<IBaseSqlExecutorOptions>(provider =>
                 new BaseSqlExecutorOptions()
                 {
-                    ConnectionString = connectionString,
-                    Database = database
+                    Connection = new MySqlConnection(connectionString),
+                    Dbms = dbms
                 });
 
             services.AddScoped<ICommandExecutor, CommandExecutor>();
         }
-    }
 
-    public static class ServiceProviderFactory
-    {
-        public static IServiceProvider ServiceProvider { get; }
-
-        static ServiceProviderFactory()
+        private static void ConfigureForSqLite(
+            this IServiceCollection services,
+            string connectionString,
+            DBMS dbms)
         {
-            // HostingEnvironment env = new HostingEnvironment();
-            // env.ContentRootPath = Directory.GetCurrentDirectory();
-            // env.EnvironmentName = "Development";
-            //
-            // Startup startup = new Startup(env);
-            // ServiceCollection sc = new ServiceCollection();
-            // startup.ConfigureServices(sc);
-            // ServiceProvider = sc.BuildServiceProvider();
+            if (connectionString is null) connectionString = "Data Source=app.db";
+            
+            services.AddScoped<IBaseSqlExecutorOptions>(provider => new BaseSqlExecutorOptions()
+            {
+                Connection = new SqliteConnection(connectionString),
+                Dbms = dbms
+            });
         }
     }
 }

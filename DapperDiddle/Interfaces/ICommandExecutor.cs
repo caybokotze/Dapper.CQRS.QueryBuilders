@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DapperDiddle.Commands;
 
 namespace DapperDiddle.Interfaces
 {

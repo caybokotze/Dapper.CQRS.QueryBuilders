@@ -1,5 +1,6 @@
 ﻿using System;
 using DapperDiddle;
+using DapperDiddle.Commands;
 using DapperDiddle.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,8 +32,7 @@ namespace TestRunner.Controllers
     {
         public override void Execute()
         {
-            Console.WriteLine("Hi there.");
-            Console.WriteLine(ReturnConnectionString());
+            Console.WriteLine(GetConnectionInstance().ConnectionString);
         }
     }
 }

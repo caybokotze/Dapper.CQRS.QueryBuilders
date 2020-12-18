@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DapperDiddle.Interfaces;
+using DapperDiddle.Queries;
 
 namespace DapperDiddle
 {
