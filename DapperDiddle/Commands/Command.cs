@@ -41,24 +41,9 @@ namespace DapperDiddle.Commands
         {
             if(sql is null)
                 throw new InvalidSqlStatementException();
+
+            this.AppendReturnId(sql);
             
-            StringBuilder builder = new StringBuilder(sql);
-
-            switch (Dbms)
-            {
-                case DBMS.SQLite:
-                    builder.Append("SELECT last_insert_rowid();");
-                    break;
-                
-                case DBMS.MySQL:
-                    builder.Append("SELECT LAST_INSERT_ID();");
-                    break;
-                
-                case DBMS.MSSQL:
-                    builder.Append("SELECT SCOPE_IDENTITY();");
-                    break;
-            }
-
             return SelectQuery<int>(sql, parameters);
         }
         

@@ -26,25 +26,42 @@ namespace DapperDiddle
             if (table is null)
                 table = typeof(T).Name.Pluralize().ConvertCase(casing);
             
-            var sql = new StringBuilder($"INSERT INTO {table} (");
+            var sqlStatement = new StringBuilder();
+
+            switch (command.Dbms)
+            {
+                case DBMS.MySQL:
+                    sqlStatement.Append($"INSERT INTO `{table}` (");
+                    break;
+                
+                case DBMS.SQLite:
+                    sqlStatement.Append($"INSERT INTO {table} (");
+                    break;
+                
+                case DBMS.MSSQL:
+                    sqlStatement.Append($"INSERT INTO [{table}] (");
+                    break;
+            }
+
+            foreach (DataColumn column in dt.Columns)
+            {
+                sqlStatement.Append($"{column.ColumnName.ConvertCase(casing)}, ");
+            }
+
+            sqlStatement.Remove(sqlStatement.Length -2, 2);
+            sqlStatement.Append(") VALUES (");
+
+            foreach (DataColumn column in dt.Columns)
+            {
+                sqlStatement.Append($"@{column.ColumnName}, ");
+            }
+
+            sqlStatement.Remove(sqlStatement.Length - 2, 2);
+            sqlStatement.Append(");");
+
+            command.AppendReturnId(sqlStatement);
             
-            foreach (DataColumn column in dt.Columns)
-            {
-                sql.Append($"{column.ColumnName.ConvertCase(casing)}, ");
-            }
-
-            sql.Remove(sql.Length -2, 2);
-            sql.Append(") VALUES (");
-
-            foreach (DataColumn column in dt.Columns)
-            {
-                sql.Append($"@{column.ColumnName}, ");
-            }
-
-            sql.Remove(sql.Length - 2, 2);
-            sql.Append(");");
-
-            return sql.ToString();
+            return sqlStatement.ToString();
         }
 
         public static string BuildUpdateStatement<T>(this T type)
@@ -76,6 +93,35 @@ namespace DapperDiddle
         public static string Pluralize(this string value)
         {
             return PluralizationProvider.Pluralize(value);
+        }
+
+        public static string AppendReturnId(this BaseSqlExecutor executor, StringBuilder builder)
+        {
+            switch (executor.Dbms)
+            {
+                case DBMS.SQLite:
+                    builder.Append("SELECT last_insert_rowid();");
+                    break;
+                
+                case DBMS.MySQL:
+                    builder.Append("SELECT LAST_INSERT_ID();");
+                    break;
+                
+                case DBMS.MSSQL:
+                    builder.Append("SELECT SCOPE_IDENTITY();");
+                    break;
+                
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            return builder.ToString();
+        }
+
+        public static string AppendReturnId(this BaseSqlExecutor executor, string originalString)
+        {
+            var builder = new StringBuilder(originalString);
+            return AppendReturnId(executor, builder);
         }
     }
 }
