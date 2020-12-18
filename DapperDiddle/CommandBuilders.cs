@@ -2,11 +2,8 @@
 using System.ComponentModel;
 using System.Data;
 using System.Globalization;
-using System.IO;
 using System.Text;
-using System.Windows.Input;
 using DapperDiddle.Commands;
-using Org.BouncyCastle.Asn1.X509.Qualified;
 using PluralizeService.Core;
 
 namespace DapperDiddle
@@ -27,19 +24,28 @@ namespace DapperDiddle
         {
             var dt = typeof(T).ObjectToDataTable();
 
-            foreach (DataColumn item in dt.Columns)
+            if (table is null)
+                table = typeof(T).Name.Pluralize().ConvertCase(casing);
+            
+            var sql = new StringBuilder($"INSERT INTO {table} (");
+            
+            foreach (DataColumn column in dt.Columns)
             {
-                Console.WriteLine(item.DataType);
+                sql.Append($"{column.ColumnName.ConvertCase(casing)}, ");
             }
 
-            if (table is null)
-                table = typeof(T).Name.Pluralize().ConvertCase(Case.Lowercase);
-            
-            var sql = new StringBuilder($"INSERT INTO {table}");
-            
-            
-            
-            return "";
+            sql.Remove(sql.Length -2, 2);
+            sql.Append(") VALUES (");
+
+            foreach (DataColumn column in dt.Columns)
+            {
+                sql.Append($"@{column.ColumnName}, ");
+            }
+
+            sql.Remove(sql.Length - 2, 2);
+            sql.Append(");");
+
+            return sql.ToString();
         }
 
         public static string BuildUpdate<T>(this T type)
