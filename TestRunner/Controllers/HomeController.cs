@@ -14,17 +14,18 @@ namespace TestRunner.Controllers
         public IQueryExecutor QueryExecutor { get; }
 
         public HomeController(
-            ICommandExecutor commandExecutor)
+            ICommandExecutor commandExecutor, 
+            IQueryExecutor queryExecutor)
         {
             CommandExecutor = commandExecutor;
+            QueryExecutor = queryExecutor;
         }
         
         [Route("")]
         public ActionResult Index()
         {
             CommandExecutor.Execute(new SaveSomething());
-            //
-            return Content("Hello there good sir.");
+            return Content("Saved Successfully");
         }
     }
 
@@ -32,7 +33,13 @@ namespace TestRunner.Controllers
     {
         public override void Execute()
         {
-            Console.WriteLine(GetConnectionInstance().ConnectionString);
+            this.BuildInsert<Person>();
         }
+    }
+
+    public class Person
+    {
+        public string Name { get; set; }
+        public int IdNumber { get; set; }
     }
 }

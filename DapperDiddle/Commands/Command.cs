@@ -1,4 +1,6 @@
-﻿namespace DapperDiddle.Commands
+﻿using System.Runtime.CompilerServices;
+
+namespace DapperDiddle.Commands
 {
     public abstract class Command<T> : Command
     {

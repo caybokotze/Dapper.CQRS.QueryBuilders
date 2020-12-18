@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Dapper;
 using DapperDiddle.Interfaces;
@@ -28,8 +29,11 @@ namespace DapperDiddle
             return _connection;
         }
 
-        public int Execute(string sql, object parameters = null)
+        protected int Execute(string sql, object parameters = null)
         {
+            if (sql.Equals("", StringComparison.InvariantCulture) || sql is null)
+                throw new ArgumentException("Please specify a value for the sql attribute.");
+            
             return _connection.Execute(sql, parameters);
         }
     }
