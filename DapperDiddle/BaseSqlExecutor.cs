@@ -2,7 +2,6 @@
 using System.Data;
 using System.Runtime.CompilerServices;
 using Dapper;
-using DapperDiddle.Enums;
 using DapperDiddle.Interfaces;
 using MySql.Data.MySqlClient;
 

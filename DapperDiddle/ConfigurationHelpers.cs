@@ -1,6 +1,5 @@
 ﻿using System;
 using DapperDiddle.Commands;
-using DapperDiddle.Enums;
 using DapperDiddle.Interfaces;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,7 +28,8 @@ namespace DapperDiddle
                 }
                 case DBMS.SQLite:
                 {
-                    throw new ArgumentException("Invalid Database selection.");
+                    ConfigureForSqLite(services, connectionString, dbms);
+                    break;
                 }
                 default:
                 {

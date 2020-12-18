@@ -1,4 +1,4 @@
-﻿namespace DapperDiddle.Enums
+﻿namespace DapperDiddle
 {
     public enum DBMS
     {

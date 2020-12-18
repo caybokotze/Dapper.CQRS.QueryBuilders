@@ -1,5 +1,4 @@
 ﻿using System.Data;
-using DapperDiddle.Enums;
 
 namespace DapperDiddle.Interfaces
 {

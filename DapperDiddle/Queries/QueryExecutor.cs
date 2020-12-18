@@ -1,15 +1,23 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using DapperDiddle.Interfaces;
 using DapperDiddle.Queries;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DapperDiddle
 {
     public class QueryExecutor : IQueryExecutor
     {
+        public IBaseSqlExecutorOptions Options { get; }
+
+        public QueryExecutor(IServiceProvider services)
+        {
+            Options = services.GetService<IBaseSqlExecutorOptions>();
+        }
+        
         public void Execute(Query query)
         {
+            query.InitialiseDependencies(Options);
             ExecuteWithNoResult(query);
         }
 
