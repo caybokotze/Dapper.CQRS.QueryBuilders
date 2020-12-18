@@ -1,4 +1,4 @@
-using DapperDiddle;
+using DapperDoodle;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,7 +21,7 @@ namespace TestRunner
         {
             services.AddControllers();
             services.AddRazorPages();
-            services.ConfigureDapperDiddle(null, DBMS.SQLite);
+            services.ConfigureDapperDoodle(null, DBMS.SQLite);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

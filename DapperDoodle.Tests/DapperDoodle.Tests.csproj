@@ -5,7 +5,7 @@
 
         <IsPackable>false</IsPackable>
 
-        <RootNamespace>DapperDiddle.Tests</RootNamespace>
+        <RootNamespace>DapperDoodle.Tests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

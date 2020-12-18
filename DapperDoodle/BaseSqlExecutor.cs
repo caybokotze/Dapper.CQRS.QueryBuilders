@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Data;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using Dapper;
-using DapperDiddle.Interfaces;
-using MySql.Data.MySqlClient;
+using DapperDoodle.Interfaces;
 
-namespace DapperDiddle
+namespace DapperDoodle
 {
     public class BaseSqlExecutor
     {

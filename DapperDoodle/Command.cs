@@ -1,4 +1,4 @@
-﻿namespace DapperDiddle.Commands
+﻿namespace DapperDoodle
 {
     public interface ICommand
     {

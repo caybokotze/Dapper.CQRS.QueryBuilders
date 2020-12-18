@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using DapperDiddle.Commands;
 
-namespace DapperDiddle.Interfaces
+namespace DapperDoodle.Interfaces
 {
     public interface ICommandExecutor
     {

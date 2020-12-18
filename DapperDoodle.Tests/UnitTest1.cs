@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace DapperDiddle.Tests
+namespace DapperDoodle.Tests
 {
     public class Tests
     {

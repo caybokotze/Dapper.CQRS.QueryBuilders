@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using DapperDiddle.Queries;
 
-namespace DapperDiddle.Interfaces
+namespace DapperDoodle.Interfaces
 {
     public interface IQueryExecutor
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace DapperDiddle
+namespace DapperDoodle
 {
     public class InvalidSqlStatementException : ArgumentException
     {

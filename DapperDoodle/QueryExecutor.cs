@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using DapperDiddle.Interfaces;
-using DapperDiddle.Queries;
+using DapperDoodle.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DapperDiddle
+namespace DapperDoodle
 {
     public class QueryExecutor : IQueryExecutor
     {

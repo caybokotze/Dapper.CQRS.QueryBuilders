@@ -1,8 +1,6 @@
-using System;
 using System.Globalization;
-using MySql.Data.MySqlClient;
 
-namespace DapperDiddle
+namespace DapperDoodle
 {
     public enum Case
     {

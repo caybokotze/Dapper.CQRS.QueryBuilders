@@ -1,15 +1,14 @@
 ﻿using System;
-using DapperDiddle.Commands;
-using DapperDiddle.Interfaces;
+using DapperDoodle.Interfaces;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.DependencyInjection;
 using MySql.Data.MySqlClient;
 
-namespace DapperDiddle
+namespace DapperDoodle
 {
     public static class ConfigurationHelpers
     {
-        public static void ConfigureDapperDiddle(
+        public static void ConfigureDapperDoodle(
             this IServiceCollection services, 
             string connectionString,
             DBMS dbms)

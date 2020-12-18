@@ -1,6 +1,6 @@
-﻿using DapperDiddle.Interfaces;
+﻿using DapperDoodle.Interfaces;
 
-namespace DapperDiddle.Queries
+namespace DapperDoodle
 {
     public abstract class Query<T> : Query
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DapperDiddle.Interfaces;
+using DapperDoodle.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DapperDiddle.Commands
+namespace DapperDoodle
 {
     public class CommandExecutor : ICommandExecutor
     {

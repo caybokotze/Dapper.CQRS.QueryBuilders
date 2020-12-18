@@ -1,6 +1,6 @@
 ﻿using System;
-using DapperDiddle.Commands;
-using DapperDiddle.Interfaces;
+using DapperDoodle;
+using DapperDoodle.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TestRunner.Controllers
