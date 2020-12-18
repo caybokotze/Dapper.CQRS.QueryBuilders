@@ -13,11 +13,11 @@ namespace DapperDiddle
         public void InitialiseDependencies(IBaseSqlExecutorOptions options)
         {
             _connection = options.Connection;
-            _dbms = options.Dbms;
+            Dbms = options.Dbms;
         }
 
         private IDbConnection _connection;
-        private DBMS _dbms;
+        public DBMS Dbms { get; set; }
 
         public T SelectQuery<T>(string sql, object parameters = null)
         {

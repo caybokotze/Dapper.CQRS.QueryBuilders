@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -19,14 +20,14 @@ namespace DapperDiddle.Commands
     {
         public abstract void Execute();
 
-        public void BuildInsert<T>()
+        public int BuildInsert<T>()
         {
-            Execute(this.BuildInsertStatement<T>(), typeof(T));
+            return Execute(this.BuildInsertStatement<T>(), typeof(T));
         }
 
-        public void BuildInsert<T>(object parameters)
+        public int BuildInsert<T>(object parameters)
         {
-            Execute(this.BuildInsertStatement<T>(), parameters);
+            return Execute(this.BuildInsertStatement<T>(), parameters);
         }
 
         /// <summary>
@@ -42,9 +43,24 @@ namespace DapperDiddle.Commands
                 throw new InvalidSqlStatementException();
             
             StringBuilder builder = new StringBuilder(sql);
-            builder.Append("");
-            
-            return Execute(sql, parameters);
+
+            switch (Dbms)
+            {
+                case DBMS.SQLite:
+                    builder.Append("SELECT last_insert_rowid();");
+                    break;
+                
+                case DBMS.MySQL:
+                    builder.Append("SELECT LAST_INSERT_ID();");
+                    break;
+                
+                case DBMS.MSSQL:
+                    builder.Append("SELECT SCOPE_IDENTITY();");
+                    break;
+            }
+
+            return SelectQuery<int>(sql, parameters);
         }
+        
     }
 }
