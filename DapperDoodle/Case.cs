@@ -1,4 +1,6 @@
+using System;
 using System.Globalization;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace DapperDoodle
@@ -10,7 +12,8 @@ namespace DapperDoodle
         PascalCase,
         Lowercase,
         CamelCase,
-        KebabCase
+        KebabCase,
+        SnakeCase
     }
     
     public static class CaseHelpers
@@ -49,6 +52,30 @@ namespace DapperDoodle
                         .Trim()
                         .ToLower();
                     break;
+                }
+                case Case.SnakeCase:
+                {
+                    if(value is null)
+                        throw new ArgumentNullException(nameof(value));
+                    if (value.Length < 2)
+                        return value;
+                    var sb = new StringBuilder();
+                    sb.Append(char.ToLowerInvariant(value[0]));
+                    for (int i = 1; i < value.Length; ++i)
+                    {
+                        char c = value[i];
+                        if (char.IsUpper(c))
+                        {
+                            sb.Append('_');
+                            sb.Append(char.ToLowerInvariant(c));
+                        }
+                        else
+                        {
+                            sb.Append(c);
+                        }
+                    }
+
+                    return sb.ToString();
                 }
             }
 
