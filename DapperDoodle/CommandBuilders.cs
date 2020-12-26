@@ -1,10 +1,16 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Text;
 
 namespace DapperDoodle
 {
     public static class CommandBuilders
     {
+        public static string AppendReturnInsertedId()
+        {
+            return "";
+        }
+        
         public static string BuildInsertStatement<T>(this Command command)
         {
             return BuildInsertStatement<T>(command, null, Case.Lowercase);
@@ -37,6 +43,8 @@ namespace DapperDoodle
                 case DBMS.MSSQL:
                     sqlStatement.Append($"INSERT INTO [{table}] (");
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             foreach (DataColumn column in dt.Columns)
@@ -60,12 +68,12 @@ namespace DapperDoodle
             return sqlStatement.ToString();
         }
 
-        public static string BuildUpdateStatement<T>(this T type)
+        public static string BuildUpdateStatement<T>(this Command command)
         {
             return "";
         }
 
-        public static string BuildSelectStatement<T>(this T type)
+        public static string BuildSelectStatement<T>(this Command command)
         {
             return "";
         }

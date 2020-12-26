@@ -21,17 +21,22 @@
 
         public int BuildInsert<T>(object parameters)
         {
-            return SelectQuery<int>(this.BuildInsertStatement<T>(), parameters);
+            return SelectQuery<int>(this.BuildInsertStatement<T>(), parameters: parameters);
+        }
+
+        public int BuildUpdate<T>(object parameters)
+        {
+            return SelectQuery<int>(this.BuildUpdateStatement<T>(), parameters: parameters);
         }
 
         /// <summary>
-        /// This will execute an instance of a Command. The Insert Statement is automatically generated from the type that is passed into the method.
+        /// This will automatically append the last inserted id for the record inserted.
         /// </summary>
         /// <param name="sql"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
         /// <exception cref="InvalidSqlStatementException"></exception>
-        public int BuildInsert(string sql, object parameters = null)
+        public int InsertAndReturnId(string sql, object parameters = null)
         {
             if(sql is null)
                 throw new InvalidSqlStatementException();
@@ -40,6 +45,5 @@
             
             return SelectQuery<int>(sql, parameters);
         }
-        
     }
 }

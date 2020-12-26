@@ -22,22 +22,22 @@ namespace TestRunner.Controllers
         [Route("")]
         public ActionResult Index()
         {
-            CommandExecutor.Execute(new SaveSomething());
+            CommandExecutor.Execute(new PersistSomething());
             return Content("Saved Successfully");
         }
     }
 
-    public class SaveSomething : Command
+    public class PersistSomething : Command
     {
         public override void Execute()
         {
-            Console.WriteLine(BuildInsert<Person>());
+            BuildInsert<Person>();
         }
     }
 
     public class Person
     {
         public string Name { get; set; }
-        public int IdNumber { get; set; }
+        public string Surname { get; set; }
     }
 }

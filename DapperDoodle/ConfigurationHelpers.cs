@@ -48,6 +48,9 @@ namespace DapperDoodle
             string connectionString,
             DBMS dbms)
         {
+            if(connectionString is null)
+                throw new ArgumentNullException("Please specify a valid connection string for MySql to use.");
+            
             services.AddScoped<IBaseSqlExecutorOptions>(provider =>
                 new BaseSqlExecutorOptions()
                 {
