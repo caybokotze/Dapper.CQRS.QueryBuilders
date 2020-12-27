@@ -12,5 +12,10 @@ namespace DapperDoodle
         public IQueryExecutor QueryExecutor { get; set; }
 
         public abstract void Execute();
+
+        public void BuildSelectQuery()
+        {
+            
+        }
     }
 }

@@ -6,11 +6,6 @@ namespace DapperDoodle
 {
     public static class CommandBuilders
     {
-        public static string AppendReturnInsertedId()
-        {
-            return "";
-        }
-        
         public static string BuildInsertStatement<T>(this Command command)
         {
             return BuildInsertStatement<T>(command, null, Case.Lowercase);
@@ -89,14 +84,54 @@ namespace DapperDoodle
             return sqlStatement.ToString();
         }
 
-        public static string BuildUpdateStatement<T>(this Command command)
+        public static string BuildUpdateStatement<T>(this Command command, string whereClause = null)
         {
-            return "";
+            return BuildUpdateStatement<T>(command, Case.Lowercase, whereClause);
         }
 
-        public static string BuildSelectStatement<T>(this Command command)
+        public static string BuildUpdateStatement<T>(this Command command, Case casing, string whereClause = null)
         {
-            return "";
+            return BuildUpdateStatement<T>(command, null, casing, whereClause);
+        }
+        
+        public static string BuildUpdateStatement<T>(this Command command, string table, Case casing, string whereClause = null)
+        {
+            var dt = typeof(T).ObjectToDataTable();
+
+            if (table is null)
+                table = typeof(T).Name.Pluralize().ConvertCase(casing);
+
+            var sqlStatement = new StringBuilder();
+
+            switch (command.Dbms)
+            {
+                case DBMS.SQLite:
+                    sqlStatement.Append($"UPDATE {table}");
+                    break;
+            }
+
+            foreach (DataColumn column in dt.Columns)
+            {
+                sqlStatement.Append($"SET {column.ColumnName.ConvertCase(casing)} = @{column.ColumnName}, ");
+            }
+
+            sqlStatement.Remove(sqlStatement.Length - 2, 2);
+
+            if (whereClause == null)
+            {
+                whereClause = "WHERE id = @Id";
+            }
+            
+            sqlStatement.Append(whereClause);
+            
+            return sqlStatement.ToString();
+        }
+
+        public static string BuildDeleteStatement<T>(this Command command, string table, Case casing)
+        {
+            var sqlStatement = new StringBuilder();
+
+            return sqlStatement.ToString();
         }
     }
 }
