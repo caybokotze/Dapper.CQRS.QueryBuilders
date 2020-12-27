@@ -11,9 +11,14 @@ namespace DapperDoodle
             return BuildSelectStatement<T>(query, null, Case.Lowercase);
         }
         
-        public static string BuildSelectStatement<T>(this Query query, string table)
+        public static string BuildSelectStatement<T>(this Query query, string table, string clause)
         {
-            return BuildSelectStatement<T>(query, table, Case.Lowercase);
+            return BuildSelectStatement<T>(query, table, Case.Lowercase, clause);
+        }
+        
+        public static string BuildSelectStatement<T>(this Query query, Case @case)
+        {
+            return BuildSelectStatement<T>(query, null, @case);
         }
         
         public static string BuildSelectStatement<T>(this Query query, string table, Case casing, string clause = null)
