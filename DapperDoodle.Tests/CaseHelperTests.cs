@@ -8,23 +8,34 @@ namespace DapperDoodle.Tests
     [TestFixture]
     public class CaseHelperTests
     {
-        [Test]
-        public void CaseKebabCase_DoesConvert_PascalCaseToKebabCase()
+        [TestCase("TheQuickBrownFoxJumps")]
+        public void CaseKebabCase_DoesConvert_PascalCaseToKebabCase(string text)
         {
-            var input = "PeopleTable";
-            Expect(input.ConvertCase(Case.KebabCase)).To.Equal("people-table");
+            Expect(text.ConvertCase(Case.KebabCase)).To.Equal("the-quick-brown-fox-jumps");
         }
 
-        [Test]
-        public void PascalCase_DoesConvert_ToCamelCase()
+        [TestCase("TheQuickBrownFoxJumps")]
+        public void PascalCase_DoesConvert_ToCamelCase(string text)
         {
-            var input = "PeopleTable";
-            Expect(input.ConvertCase(Case.CamelCase)).To.Equal("peopleTable");
+            Expect(text.ConvertCase(Case.CamelCase)).To.Equal("theQuickBrownFoxJumps");
         }
 
-        public void SnakeCase_DoesConvert_ToCamelCase()
+        [TestCase("the_quick_brown_fox")]
+        public void SnakeCase_DoesConvert_ToCamelCase(string text)
         {
-            
+            Expect(text.ConvertCase(Case.CamelCase)).To.Equal("theQuickBrownFox");
+        }
+
+        [TestCase("TheQuickBrownFoxJumps")]
+        public void SnakeCase_DoesConvert_ToKebabCase(string text)
+        {
+            Expect(text.ConvertCase(Case.KebabCase)).To.Equal("the-quick-brown-fox-jumps");
+        }
+
+        [TestCase("theQuickBrownFoxJumps")]
+        public void KebabCase_DoesConvert_ToPascalCase(string text)
+        {
+            Expect(text.ConvertCase(Case.PascalCase)).To.Equal("Thequickbrownfoxjumps");
         }
     }
 }

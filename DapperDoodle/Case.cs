@@ -18,6 +18,13 @@ namespace DapperDoodle
     
     public static class CaseHelpers
     {
+        /// <summary>
+        /// The ConvertCase method currently only supports conversions from Pascal Case to everything else. Other support can later be added.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="casing"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public static string ConvertCase(this string value, Case casing)
         {
             switch (casing)
