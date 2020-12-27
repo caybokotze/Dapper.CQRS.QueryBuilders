@@ -17,6 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\DapperDoodle.TestProject\DapperDoodle.TestProject.csproj" />
       <ProjectReference Include="..\DapperDoodle\DapperDoodle.csproj" />
     </ItemGroup>
 
