@@ -1,13 +1,13 @@
-﻿using System.Transactions;
-using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
+﻿using System;
+using System.Transactions;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
-using MySqlX.XDevAPI.Common;
 using NExpect;
+using NSubstitute;
 using NUnit.Framework;
+using PeanutButter.RandomGenerators;
 using TestRunner;
-using Ubiety.Dns.Core;
 using static NExpect.Expectations;
+using static PeanutButter.RandomGenerators.RandomValueGen;
 
 namespace DapperDoodle.Tests
 {
@@ -93,10 +93,26 @@ namespace DapperDoodle.Tests
                     };
 
                     command.BuildInsert<Person>(person);
+
+                    CommandExecutor.Execute(new InsertPerson(GetRandomPerson()));
                     
-                    var commandExecutor = new CommandExecutor();
                     scope.Complete();
                 }
+            }
+        }
+
+        public class InsertPerson : Command
+        {
+            private readonly Person _person;
+
+            public InsertPerson(Person person)
+            {
+                _person = person;
+            }
+            
+            public override void Execute()
+            {
+                BuildInsert<Person>(_person);
             }
         }
 
@@ -112,6 +128,15 @@ namespace DapperDoodle.Tests
         {
             public string Name { get; set; }
             public string Surname { get; set; }
+        }
+
+        public static Person GetRandomPerson()
+        {
+            return new Person()
+            {
+                Name = GetRandomString(),
+                Surname = GetRandomString()
+            };
         }
         
         public static Command Create()
