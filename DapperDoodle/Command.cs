@@ -1,4 +1,7 @@
-﻿namespace DapperDoodle
+﻿using System;
+using Google.Protobuf.WellKnownTypes;
+
+namespace DapperDoodle
 {
     public interface ICommand
     {
@@ -13,11 +16,6 @@
     public abstract class Command : BaseSqlExecutor, ICommand
     {
         public abstract void Execute();
-
-        public int BuildInsert<T>()
-        {
-            return SelectQuery<int>(this.BuildInsertStatement<T>(), typeof(T));
-        }
 
         public int BuildInsert<T>(object parameters)
         {

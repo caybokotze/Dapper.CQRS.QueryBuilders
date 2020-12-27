@@ -16,11 +16,32 @@ namespace DapperDoodle
             return BuildInsertStatement<T>(command, null, Case.Lowercase);
         }
         
+        public static string BuildInsertStatement<T>(this Command command, string table)
+        {
+            return BuildInsertStatement<T>(command, table, Case.Lowercase);
+        }
+        
+        /// <summary>
+        /// Override to specify the casing that should be used for the table and variable names.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="casing"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static string BuildInsertStatement<T>(this Command command, Case casing)
         {
             return BuildInsertStatement<T>(command, null, casing);
         }
         
+        /// <summary>
+        /// Override for table to turn off the table pluralization.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="table"></param>
+        /// <param name="casing"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         private static string BuildInsertStatement<T>(this Command command, string table, Case casing)
         {
             var dt = typeof(T).ObjectToDataTable();
@@ -44,7 +65,7 @@ namespace DapperDoodle
                     sqlStatement.Append($"INSERT INTO [{table}] (");
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentException("The DBMS Selected is not yet supported");
             }
 
             foreach (DataColumn column in dt.Columns)
