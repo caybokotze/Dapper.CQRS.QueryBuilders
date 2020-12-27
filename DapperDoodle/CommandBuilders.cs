@@ -117,19 +117,29 @@ namespace DapperDoodle
 
             sqlStatement.Remove(sqlStatement.Length - 2, 2);
 
-            if (whereClause == null)
-            {
+            if (whereClause is null)
                 whereClause = "WHERE id = @Id";
-            }
-            
+
             sqlStatement.Append(whereClause);
             
             return sqlStatement.ToString();
         }
 
-        public static string BuildDeleteStatement<T>(this Command command, string table, Case casing)
+        public static string BuildDeleteStatement<T>(this Command command, string table, Case casing, string whereClause = null)
         {
+            if (whereClause is null)
+                whereClause = "WHERE id = @Id";
+            
             var sqlStatement = new StringBuilder();
+
+            switch (command.Dbms)
+            {
+                case DBMS.SQLite:
+                    sqlStatement.Append($"DELETE FROM {table}");
+                    break;
+            }
+
+            sqlStatement.Append(whereClause);
 
             return sqlStatement.ToString();
         }
