@@ -98,17 +98,16 @@ namespace DapperDoodle
             
             return sqlStatement.ToString();
         }
-
-        /// <summary>
-        /// Returns an SQL UPDATE statement.
-        /// </summary>
-        /// <param name="command"></param>
-        /// <param name="whereClause"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static string BuildUpdateStatement<T>(this Command command, string whereClause = null)
+        
+        
+        public static string BuildUpdateStatement<T>(this Command command)
         {
-            return BuildUpdateStatement<T>(command, Case.Lowercase, whereClause);
+            return BuildUpdateStatement<T>(command, null, Case.Lowercase, null);
+        }
+        
+        public static string BuildUpdateStatement<T>(this Command command, string table, string clause)
+        {
+            return BuildUpdateStatement<T>(command, table, Case.Lowercase, clause);
         }
 
         /// <summary>
@@ -116,12 +115,12 @@ namespace DapperDoodle
         /// </summary>
         /// <param name="command"></param>
         /// <param name="casing"></param>
-        /// <param name="whereClause"></param>
+        /// <param name="clause"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static string BuildUpdateStatement<T>(this Command command, Case casing, string whereClause = null)
+        public static string BuildUpdateStatement<T>(this Command command, Case casing, string clause = null)
         {
-            return BuildUpdateStatement<T>(command, null, casing, whereClause);
+            return BuildUpdateStatement<T>(command, null, casing, clause);
         }
         
         /// <summary>
@@ -130,11 +129,11 @@ namespace DapperDoodle
         /// <param name="command"></param>
         /// <param name="table"></param>
         /// <param name="casing"></param>
-        /// <param name="whereClause"></param>
+        /// <param name="clause"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         /// <exception cref="InvalidDatabaseTypeException"></exception>
-        public static string BuildUpdateStatement<T>(this Command command, string table, Case casing, string whereClause = null)
+        public static string BuildUpdateStatement<T>(this Command command, string table, Case casing, string clause = null)
         {
             var dt = typeof(T).ObjectToDataTable();
 
@@ -165,15 +164,19 @@ namespace DapperDoodle
 
             sqlStatement.Remove(sqlStatement.Length - 2, 2);
 
-            if (whereClause is null)
-                whereClause = "WHERE id = @Id";
+            if (clause is null)
+                clause = "WHERE id = @Id";
 
-            sqlStatement.Append(whereClause);
+            sqlStatement.Append(clause);
             
             return sqlStatement.ToString();
         }
 
-        
+
+        public static string BuildDeleteStatement<T>(this Command command)
+        {
+            return BuildDeleteStatement<T>(command, null, Case.Lowercase, null);
+        }
         
         /// <summary>
         /// Returns a SQL DELETE statement.
@@ -181,14 +184,17 @@ namespace DapperDoodle
         /// <param name="command"></param>
         /// <param name="table"></param>
         /// <param name="casing"></param>
-        /// <param name="whereClause"></param>
+        /// <param name="clause"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         /// <exception cref="InvalidDatabaseTypeException"></exception>
-        public static string BuildDeleteStatement<T>(this Command command, string table, Case casing, string whereClause = null)
+        public static string BuildDeleteStatement<T>(this Command command, string table, Case casing, string clause)
         {
-            if (whereClause is null)
-                whereClause = "WHERE id = @Id";
+            if (table is null)
+                table = typeof(T).Name.Pluralize().ConvertCase(casing);
+                
+            if (clause is null)
+                clause = "WHERE id = @Id";
             
             var sqlStatement = new StringBuilder();
 
@@ -208,7 +214,7 @@ namespace DapperDoodle
             }
 
             sqlStatement.Append(" ");
-            sqlStatement.Append(whereClause);
+            sqlStatement.Append(clause);
 
             return sqlStatement.ToString();
         }

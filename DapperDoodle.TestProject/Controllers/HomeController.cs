@@ -22,12 +22,12 @@ namespace TestRunner.Controllers
         [Route("")]
         public ActionResult Index()
         {
-            CommandExecutor.Execute(new PersistSomething());
+            CommandExecutor.Execute(new InsertAPerson());
             return Content("Saved Successfully");
         }
     }
 
-    public class PersistSomething : Command
+    public class InsertAPerson : Command
     {
         public override void Execute()
         {
@@ -35,6 +35,29 @@ namespace TestRunner.Controllers
             {
                 Name = "Honey",
                 Surname = "Maxwell"
+            });
+        }
+    }
+
+    public class UpdateAPerson : Command
+    {
+        public override void Execute()
+        {
+            BuildUpdate<Person>(new Person()
+            {
+                Name = "Honey",
+                Surname = "Maxwell"
+            });
+        }
+    }
+
+    public class DeleteAPerson : Command
+    {
+        public override void Execute()
+        {
+            BuildDelete<Person>(new Person()
+            {
+                
             });
         }
     }

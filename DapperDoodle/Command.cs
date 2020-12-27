@@ -39,10 +39,25 @@ namespace DapperDoodle
         {
             return SelectQuery<int>(this.BuildInsertStatement<T>(table: table, casing: casing), parameters: parameters);
         }
+        
+        public int BuildUpdate<T>(object parameters, string clause)
+        {
+            return SelectQuery<int>(this.BuildUpdateStatement<T>(table: null, clause: clause), parameters: parameters);
+        }
+        
+        public int BuildUpdate<T>(object parameters, string table, string clause)
+        {
+            return SelectQuery<int>(this.BuildUpdateStatement<T>(table: table, clause: clause), parameters: parameters);
+        }
 
         public int BuildUpdate<T>(object parameters)
         {
             return SelectQuery<int>(this.BuildUpdateStatement<T>(), parameters: parameters);
+        }
+
+        public int BuildDelete<T>(object parameters)
+        {
+            return SelectQuery<int>(this.BuildDeleteStatement<T>(), parameters: parameters);
         }
 
         /// <summary>
