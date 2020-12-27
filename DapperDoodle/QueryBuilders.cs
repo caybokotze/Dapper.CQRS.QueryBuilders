@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Text;
 using DapperDoodle.Exceptions;
 
@@ -27,6 +28,9 @@ namespace DapperDoodle
 
             if (table is null)
                 table = typeof(T).Name.Pluralize().ConvertCase(casing);
+
+            if (clause is null)
+                clause = string.Empty;
             
             var sqlStatement = new StringBuilder();
             

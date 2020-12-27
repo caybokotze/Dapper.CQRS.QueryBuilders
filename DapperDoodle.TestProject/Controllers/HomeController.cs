@@ -1,6 +1,8 @@
 ﻿using System;
 using DapperDoodle;
 using Microsoft.AspNetCore.Mvc;
+using PeanutButter.RandomGenerators;
+using static PeanutButter.RandomGenerators.RandomValueGen;
 
 namespace TestRunner.Controllers
 {
@@ -22,31 +24,40 @@ namespace TestRunner.Controllers
         [Route("")]
         public ActionResult Index()
         {
-            CommandExecutor.Execute(new InsertAPerson());
+            var personId = CommandExecutor.Execute(new InsertAPerson());
+            CommandExecutor.Execute(new UpdateAPerson(personId));
+            QueryExecutor.Execute(new SelectAPerson(personId));
             return Content("Saved Successfully");
         }
     }
 
-    public class InsertAPerson : Command
+    public class InsertAPerson : Command<int>
     {
         public override void Execute()
         {
-            BuildInsert<Person>(new Person()
+            Result = BuildInsert<Person>(new Person()
             {
-                Name = "Honey",
-                Surname = "Maxwell"
+                Name = GetRandomString(),
+                Surname = GetRandomString()
             });
         }
     }
 
     public class UpdateAPerson : Command
     {
+        public int Id { get; }
+
+        public UpdateAPerson(int id)
+        {
+            Id = id;
+        }
         public override void Execute()
         {
             BuildUpdate<Person>(new Person()
             {
-                Name = "Honey",
-                Surname = "Maxwell"
+                Id = Id,
+                Name = GetRandomString(),
+                Surname = GetRandomString()
             });
         }
     }
@@ -57,13 +68,29 @@ namespace TestRunner.Controllers
         {
             BuildDelete<Person>(new Person()
             {
-                
+                Name = GetRandomString(),
+                Surname = GetRandomString()
             });
+        }
+    }
+    
+    public class SelectAPerson : Query<Person>
+    {
+        private readonly int _id;
+
+        public SelectAPerson(int Id)
+        {
+            _id = Id;
+        }
+        public override void Execute()
+        {
+            Result = BuildSelect<Person>("where id = @Id", new { Id = _id });
         }
     }
 
     public class Person
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
     }

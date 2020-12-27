@@ -23,14 +23,14 @@ namespace DapperDoodle
             return SelectQuery<T>(this.BuildSelectStatement<T>(@case));
         }
 
-        public T BuildSelect<T>(string clause)
+        public T BuildSelect<T>(string clause, object parameters = null)
         {
             return SelectQuery<T>(this.BuildSelectStatement<T>(null, clause));
         }
         
-        public T BuildSelect<T>(string table, string clause)
+        public T BuildSelect<T>(string table, string clause, object parameters = null)
         {
-            return SelectQuery<T>(this.BuildSelectStatement<T>(table, clause));
+            return SelectQuery<T>(this.BuildSelectStatement<T>(table, clause), parameters: parameters);
         }
     }
 }

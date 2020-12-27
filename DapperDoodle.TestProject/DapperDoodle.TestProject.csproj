@@ -9,4 +9,8 @@
       <ProjectReference Include="..\DapperDoodle\DapperDoodle.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="PeanutButter.RandomGenerators" Version="1.2.380" />
+    </ItemGroup>
+
 </Project>
