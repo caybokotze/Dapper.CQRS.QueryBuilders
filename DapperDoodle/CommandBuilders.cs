@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Text;
+using DapperDoodle.Exceptions;
 
 namespace DapperDoodle
 {
@@ -60,7 +61,7 @@ namespace DapperDoodle
                     sqlStatement.Append($"INSERT INTO [{table}] (");
                     break;
                 default:
-                    throw new ArgumentException("The DBMS Selected is not yet supported");
+                    throw new InvalidDatabaseTypeException();
             }
 
             foreach (DataColumn column in dt.Columns)
@@ -108,6 +109,8 @@ namespace DapperDoodle
                 case DBMS.SQLite:
                     sqlStatement.Append($"UPDATE {table}");
                     break;
+                default:
+                    throw new InvalidDatabaseTypeException();
             }
 
             foreach (DataColumn column in dt.Columns)
@@ -137,6 +140,8 @@ namespace DapperDoodle
                 case DBMS.SQLite:
                     sqlStatement.Append($"DELETE FROM {table}");
                     break;
+                default:
+                    throw new InvalidDatabaseTypeException();
             }
 
             sqlStatement.Append(whereClause);

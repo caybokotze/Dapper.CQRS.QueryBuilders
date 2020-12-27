@@ -1,4 +1,5 @@
 ﻿using System;
+using DapperDoodle.Exceptions;
 using Google.Protobuf.WellKnownTypes;
 
 namespace DapperDoodle

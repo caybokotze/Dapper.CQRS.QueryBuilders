@@ -31,7 +31,11 @@ namespace TestRunner.Controllers
     {
         public override void Execute()
         {
-            BuildInsert<Person>();
+            BuildInsert<Person>(new Person()
+            {
+                Name = "Honey",
+                Surname = "Maxwell"
+            });
         }
     }
 
