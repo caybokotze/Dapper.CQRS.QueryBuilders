@@ -1,7 +1,10 @@
 ﻿namespace DapperDoodle
 {
-    public class QueryBuilders
+    public static class QueryBuilders
     {
-        
+        public static string BuildSelectStatement<T>(this Query query)
+        {
+            
+        }
     }
 }

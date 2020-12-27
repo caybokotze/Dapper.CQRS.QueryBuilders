@@ -17,10 +17,27 @@ namespace DapperDoodle
     public abstract class Command : BaseSqlExecutor, ICommand
     {
         public abstract void Execute();
+        
 
+        /// <summary>
+        /// Returns the ID of the Inserted record after inserting the record.
+        /// </summary>
+        /// <param name="parameters">Pass in the arguments or type as an argument that needs to be appended to the sql statement</param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public int BuildInsert<T>(object parameters)
         {
             return SelectQuery<int>(this.BuildInsertStatement<T>(), parameters: parameters);
+        }
+        
+        public int BuildInsert<T>(object parameters, string table)
+        {
+            return SelectQuery<int>(this.BuildInsertStatement<T>(table: table), parameters: parameters);
+        }
+        
+        public int BuildInsert<T>(object parameters, string table, Case casing)
+        {
+            return SelectQuery<int>(this.BuildInsertStatement<T>(table: table, casing: casing), parameters: parameters);
         }
 
         public int BuildUpdate<T>(object parameters)

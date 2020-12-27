@@ -13,9 +13,9 @@ namespace DapperDoodle
 
         public abstract void Execute();
 
-        public void BuildSelectQuery()
+        public T BuildSelect<T>()
         {
-            
+            return SelectQuery<T>(this.BuildSelectStatement<T>());
         }
     }
 }
