@@ -1,11 +1,8 @@
-﻿using System;
-using System.Transactions;
+﻿using System.Transactions;
 using Microsoft.Extensions.DependencyInjection;
 using NExpect;
-using NSubstitute;
 using NUnit.Framework;
-using PeanutButter.RandomGenerators;
-using TestRunner;
+using TestProject;
 using static NExpect.Expectations;
 using static PeanutButter.RandomGenerators.RandomValueGen;
 
@@ -65,7 +62,6 @@ namespace DapperDoodle.Tests
 
         public class Transactions
         {
-            private readonly IServiceCollection _dependencies;
             public ICommandExecutor CommandExecutor { get; set; }
             public IQueryExecutor QueryExecutor { get; set; }
 

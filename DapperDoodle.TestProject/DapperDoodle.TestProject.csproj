@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <RootNamespace>TestRunner</RootNamespace>
+        <RootNamespace>TestProject</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

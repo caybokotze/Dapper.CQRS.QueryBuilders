@@ -18,7 +18,12 @@ namespace DapperDoodle
 
         public T SelectQuery<T>(string sql, object parameters = null)
         {
-            return (T)_connection.Query(sql, parameters);
+            if (typeof(T) == typeof(int))
+            {
+                return (T) _connection.QueryFirst<T>(sql, parameters);
+            }
+            
+            return (T)_connection.Query<T>(sql, parameters);
         }
 
         public IDbConnection GetConnectionInstance()

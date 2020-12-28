@@ -1,11 +1,9 @@
 using System;
-using System.IO;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Hosting.Internal;
+using TestRunner;
 
-namespace TestRunner
+namespace TestProject
 {
     public class Program
     {

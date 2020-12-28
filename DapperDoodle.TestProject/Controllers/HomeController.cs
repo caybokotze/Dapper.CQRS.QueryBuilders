@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Data.Common;
+using System.Linq;
+using Dapper;
 using DapperDoodle;
 using Microsoft.AspNetCore.Mvc;
-using PeanutButter.RandomGenerators;
+using PeanutButter.Utils;
 using static PeanutButter.RandomGenerators.RandomValueGen;
 
-namespace TestRunner.Controllers
+namespace TestProject.Controllers
 {
     [Route("")]
     [Controller]
@@ -24,9 +27,11 @@ namespace TestRunner.Controllers
         [Route("")]
         public ActionResult Index()
         {
-            var personId = CommandExecutor.Execute(new InsertAPerson());
-            CommandExecutor.Execute(new UpdateAPerson(personId));
-            QueryExecutor.Execute(new SelectAPerson(personId));
+            CommandExecutor.Execute(new TestExecutor());
+            // CommandExecutor.Execute(new SeedPeopleTable());
+            // var personId = CommandExecutor.Execute(new InsertAPerson());
+            // CommandExecutor.Execute(new UpdateAPerson(personId));
+            // QueryExecutor.Execute(new SelectAPerson(personId));
             return Content("Saved Successfully");
         }
     }
@@ -37,6 +42,7 @@ namespace TestRunner.Controllers
         {
             Result = BuildInsert<Person>(new Person()
             {
+                Id = GetRandomInt(),
                 Name = GetRandomString(),
                 Surname = GetRandomString()
             });
@@ -85,6 +91,23 @@ namespace TestRunner.Controllers
         public override void Execute()
         {
             Result = BuildSelect<Person>("where id = @Id", new { Id = _id });
+        }
+    }
+
+    public class TestExecutor : Command<int>
+    {
+        public override void Execute()
+        {
+            var something = GetConnectionInstance().QueryFirst<int>("INSERT INTO People (name, surname) VALUES ('John', 'Williams'); SELECT last_insert_rowid();");
+            var somethingType = something.GetType();
+        }
+    }
+
+    public class SeedPeopleTable : Command
+    {
+        public override void Execute()
+        {
+            Execute("CREATE TABLE IF NOT EXISTS people (id INTEGER PRIMARY KEY, name TEXT NOT NULL, surname TEXT NOT NULL);");
         }
     }
 
