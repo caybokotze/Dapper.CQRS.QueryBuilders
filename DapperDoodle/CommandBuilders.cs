@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
+using System.Reflection;
 using System.Text;
 using DapperDoodle.Exceptions;
 
@@ -42,25 +45,38 @@ namespace DapperDoodle
         {
             return BuildInsertStatement<T>(command, null, casing);
         }
-        
+
         /// <summary>
         /// Returns a string of the Insert Statement that will be inserted into the database.
         /// </summary>
         /// <param name="command"></param>
         /// <param name="table"></param>
         /// <param name="casing"></param>
+        /// <param name="removeParameters"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static string BuildInsertStatement<T>(this Command command, string table, Case casing)
+        public static string BuildInsertStatement<T>(this Command command, string table, Case casing, object removeParameters = null)
         {
             var dt = typeof(T).ObjectToDataTable();
 
             if (table is null)
                 table = typeof(T).Name.Pluralize().ConvertCase(casing);
+
             
             var sqlStatement = new StringBuilder();
 
+            if (removeParameters != null)
+            {
+                var type = removeParameters.GetType();
+                var props = new List<PropertyInfo>(type.GetProperties());
+
+                foreach (var prop in props)
+                {
+                    dt.Columns.Remove(prop.Name);
+                }
+            }
+            
             switch (command.Dbms)
             {
                 case DBMS.MySQL:
@@ -118,7 +134,7 @@ namespace DapperDoodle
         /// <param name="clause"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static string BuildUpdateStatement<T>(this Command command, Case casing, string clause = null)
+        public static string BuildUpdateStatement<T>(this Command command, Case casing, string clause)
         {
             return BuildUpdateStatement<T>(command, null, casing, clause);
         }
@@ -133,12 +149,15 @@ namespace DapperDoodle
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         /// <exception cref="InvalidDatabaseTypeException"></exception>
-        public static string BuildUpdateStatement<T>(this Command command, string table, Case casing, string clause = null)
+        public static string BuildUpdateStatement<T>(this Command command, string table, Case casing, string clause)
         {
             var dt = typeof(T).ObjectToDataTable();
 
             if (table is null)
                 table = typeof(T).Name.Pluralize().ConvertCase(casing);
+            
+            if (clause is null)
+                clause = "WHERE id = @Id";
 
             var sqlStatement = new StringBuilder();
 
@@ -157,6 +176,8 @@ namespace DapperDoodle
                     throw new InvalidDatabaseTypeException();
             }
 
+            sqlStatement.Append(" ");
+            
             foreach (DataColumn column in dt.Columns)
             {
                 sqlStatement.Append($"SET {column.ColumnName.ConvertCase(casing)} = @{column.ColumnName}, ");
@@ -164,8 +185,7 @@ namespace DapperDoodle
 
             sqlStatement.Remove(sqlStatement.Length - 2, 2);
 
-            if (clause is null)
-                clause = "WHERE id = @Id";
+            sqlStatement.Append(" ");
 
             sqlStatement.Append(clause);
             

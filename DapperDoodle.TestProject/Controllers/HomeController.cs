@@ -27,11 +27,10 @@ namespace TestProject.Controllers
         [Route("")]
         public ActionResult Index()
         {
-            CommandExecutor.Execute(new TestExecutor());
-            // CommandExecutor.Execute(new SeedPeopleTable());
-            // var personId = CommandExecutor.Execute(new InsertAPerson());
-            // CommandExecutor.Execute(new UpdateAPerson(personId));
-            // QueryExecutor.Execute(new SelectAPerson(personId));
+            CommandExecutor.Execute(new SeedPeopleTable());
+            var personId = CommandExecutor.Execute(new InsertAPerson());
+            CommandExecutor.Execute(new UpdateAPerson(personId));
+            QueryExecutor.Execute(new SelectAPerson(personId));
             return Content("Saved Successfully");
         }
     }
@@ -42,10 +41,10 @@ namespace TestProject.Controllers
         {
             Result = BuildInsert<Person>(new Person()
             {
-                Id = GetRandomInt(),
+                Id = -1,
                 Name = GetRandomString(),
                 Surname = GetRandomString()
-            });
+            }, "people", Case.Lowercase, new { Id = 0 });
         }
     }
 
@@ -98,7 +97,7 @@ namespace TestProject.Controllers
     {
         public override void Execute()
         {
-            var something = GetConnectionInstance().QueryFirst<int>("INSERT INTO People (name, surname) VALUES ('John', 'Williams'); SELECT last_insert_rowid();");
+            var something = SelectQuery<int>("INSERT INTO People (name, surname) VALUES ('John', 'Williams'); SELECT last_insert_rowid();");
             var somethingType = something.GetType();
         }
     }

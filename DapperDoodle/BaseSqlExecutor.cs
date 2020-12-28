@@ -20,7 +20,7 @@ namespace DapperDoodle
         {
             if (typeof(T) == typeof(int))
             {
-                return (T) _connection.QueryFirst<T>(sql, parameters);
+                return _connection.QueryFirst<T>(sql, parameters);
             }
             
             return (T)_connection.Query<T>(sql, parameters);
