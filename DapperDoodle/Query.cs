@@ -25,7 +25,7 @@ namespace DapperDoodle
 
         public T BuildSelect<T>(string clause, object parameters = null)
         {
-            return SelectQuery<T>(this.BuildSelectStatement<T>(null, clause));
+            return SelectQuery<T>(this.BuildSelectStatement<T>(null, clause), parameters);
         }
         
         public T BuildSelect<T>(string table, string clause, object parameters = null)

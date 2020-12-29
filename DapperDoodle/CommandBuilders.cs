@@ -157,20 +157,20 @@ namespace DapperDoodle
                 table = typeof(T).Name.Pluralize().ConvertCase(casing);
             
             if (clause is null)
-                clause = "WHERE id = @Id";
+                clause = "WHERE id = @Id;";
 
             var sqlStatement = new StringBuilder();
 
             switch (command.Dbms)
             {
                 case DBMS.SQLite:
-                    sqlStatement.Append($"UPDATE {table}");
+                    sqlStatement.Append($"UPDATE {table} SET");
                     break;
                 case DBMS.MySQL:
-                    sqlStatement.Append($"UPDATE `{table}`");
+                    sqlStatement.Append($"UPDATE `{table}` SET");
                     break;
                 case DBMS.MSSQL:
-                    sqlStatement.Append($"UPDATE [{table}]");
+                    sqlStatement.Append($"UPDATE [{table}] SET");
                     break;
                 default:
                     throw new InvalidDatabaseTypeException();
@@ -180,7 +180,7 @@ namespace DapperDoodle
             
             foreach (DataColumn column in dt.Columns)
             {
-                sqlStatement.Append($"SET {column.ColumnName.ConvertCase(casing)} = @{column.ColumnName}, ");
+                sqlStatement.Append($"{column.ColumnName.ConvertCase(casing)} = @{column.ColumnName}, ");
             }
 
             sqlStatement.Remove(sqlStatement.Length - 2, 2);
@@ -188,6 +188,8 @@ namespace DapperDoodle
             sqlStatement.Append(" ");
 
             sqlStatement.Append(clause);
+
+            sqlStatement.Append(" SELECT 0;");
             
             return sqlStatement.ToString();
         }

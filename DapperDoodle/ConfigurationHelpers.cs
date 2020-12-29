@@ -57,8 +57,6 @@ namespace DapperDoodle
                     Connection = new MySqlConnection(connectionString),
                     Dbms = dbms
                 });
-
-            services.AddScoped<ICommandExecutor, CommandExecutor>();
         }
 
         private static void ConfigureForSqLite(
@@ -68,7 +66,8 @@ namespace DapperDoodle
         {
             if (connectionString is null) connectionString = "Data Source=app.db";
             
-            services.AddScoped<IBaseSqlExecutorOptions>(provider => new BaseSqlExecutorOptions()
+            services.AddScoped<IBaseSqlExecutorOptions>(provider => 
+                new BaseSqlExecutorOptions()
             {
                 Connection = new SqliteConnection(connectionString),
                 Dbms = dbms

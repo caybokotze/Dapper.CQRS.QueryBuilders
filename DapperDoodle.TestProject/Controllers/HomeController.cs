@@ -28,39 +28,49 @@ namespace TestProject.Controllers
         public ActionResult Index()
         {
             CommandExecutor.Execute(new SeedPeopleTable());
-            var personId = CommandExecutor.Execute(new InsertAPerson());
-            CommandExecutor.Execute(new UpdateAPerson(personId));
-            QueryExecutor.Execute(new SelectAPerson(personId));
+            var person = CommandExecutor.Execute(new InsertAPerson());
+            CommandExecutor.Execute(new UpdateAPerson(person));
+            var samePerson = QueryExecutor.Execute(new SelectAPerson(person.Id));
+            return Content("Saved Successfully");
+        }
+        
+        [Route("test")]
+        public ActionResult TestExecutor()
+        {
+            QueryExecutor.Execute(new TestExecutor());
             return Content("Saved Successfully");
         }
     }
 
-    public class InsertAPerson : Command<int>
+    public class InsertAPerson : Command<Person>
     {
         public override void Execute()
         {
-            Result = BuildInsert<Person>(new Person()
+            var person = new Person()
             {
-                Id = -1,
                 Name = GetRandomString(),
                 Surname = GetRandomString()
-            }, "people", Case.Lowercase, new { Id = 0 });
+            };
+            
+            person.Id = BuildInsert<Person>(person, null, Case.Lowercase, new { Id = 0 });
+            
+            Result = person;
         }
     }
 
     public class UpdateAPerson : Command
     {
-        public int Id { get; }
+        public Person Person { get; }
 
-        public UpdateAPerson(int id)
+        public UpdateAPerson(Person person)
         {
-            Id = id;
+            Person = person;
         }
         public override void Execute()
         {
             BuildUpdate<Person>(new Person()
             {
-                Id = Id,
+                Id = Person.Id,
                 Name = GetRandomString(),
                 Surname = GetRandomString()
             });
@@ -93,11 +103,15 @@ namespace TestProject.Controllers
         }
     }
 
-    public class TestExecutor : Command<int>
+    public class TestExecutor : Query<int>
     {
         public override void Execute()
         {
-            var something = SelectQuery<int>("INSERT INTO People (name, surname) VALUES ('John', 'Williams'); SELECT last_insert_rowid();");
+            var something = GetConnectionInstance()
+                .Query<int>("SELECT 1;").First();
+
+            Result = something;
+            
             var somethingType = something.GetType();
         }
     }

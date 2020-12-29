@@ -38,10 +38,10 @@ namespace DapperDoodle
 
             foreach (DataColumn column in dt.Columns)
             {
-                variables.Append($"{column.ColumnName},");
+                variables.Append($"{column.ColumnName.ConvertCase(casing)}, ");
             }
 
-            variables.Remove(variables.Length - 1, 1);
+            variables.Remove(variables.Length - 2, 2);
 
             switch (query.Dbms)
             {
@@ -58,6 +58,7 @@ namespace DapperDoodle
                     throw new InvalidDatabaseTypeException();
             }
 
+            sqlStatement.Append(" ");
             sqlStatement.Append(clause);
             sqlStatement.Append(";");
 
