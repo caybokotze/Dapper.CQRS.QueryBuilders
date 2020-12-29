@@ -30,6 +30,7 @@ namespace DapperDoodle
                     ConfigureForSqLite(services, connectionString, dbms);
                     break;
                 }
+                // todo: Add the case for MSSQL.
                 default:
                 {
                     throw new ArgumentException("The database you have selected is not yet supported.");

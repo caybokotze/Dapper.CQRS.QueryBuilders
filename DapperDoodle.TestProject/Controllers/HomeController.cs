@@ -3,7 +3,9 @@ using System.Data.Common;
 using System.Linq;
 using Dapper;
 using DapperDoodle;
+using DapperDoodle.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using PeanutButter.Utils;
 using static PeanutButter.RandomGenerators.RandomValueGen;
 
@@ -107,10 +109,15 @@ namespace TestProject.Controllers
     {
         public override void Execute()
         {
+            var serviceProvider = DependencyInjectionHelpers.GetServiceProviderInstance();
+            var baseSqlExecutorOptions = serviceProvider.GetService<IBaseSqlExecutorOptions>();
+            //
+            var something3 = baseSqlExecutorOptions.Connection.Query("SELECT 1;");
+            
             var something = GetConnectionInstance()
-                .Query<int>("SELECT 1;").First();
+                .Query("SELECT 1;");
 
-            Result = something;
+            Result = 1;
             
             var somethingType = something.GetType();
         }
