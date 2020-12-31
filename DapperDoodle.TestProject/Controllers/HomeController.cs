@@ -32,8 +32,8 @@ namespace TestProject.Controllers
             CommandExecutor.Execute(new SeedPeopleTable());
             var person = CommandExecutor.Execute(new InsertAPerson());
             CommandExecutor.Execute(new UpdateAPerson(person));
-            var samePerson = QueryExecutor.Execute(new SelectAPerson(person.Id));
-            var shouldReturnOne = QueryExecutor.Execute(new TestBaseExecutor());
+            QueryExecutor.Execute(new SelectAPerson(person.Id));
+            QueryExecutor.Execute(new TestBaseExecutor());
             return Content("All CRUD Operations Completed Successfully.");
         }
     }
