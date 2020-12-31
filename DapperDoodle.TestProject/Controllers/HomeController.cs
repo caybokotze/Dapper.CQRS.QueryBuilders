@@ -33,14 +33,8 @@ namespace TestProject.Controllers
             var person = CommandExecutor.Execute(new InsertAPerson());
             CommandExecutor.Execute(new UpdateAPerson(person));
             var samePerson = QueryExecutor.Execute(new SelectAPerson(person.Id));
-            return Content("Saved Successfully");
-        }
-        
-        [Route("test")]
-        public ActionResult TestExecutor()
-        {
-            QueryExecutor.Execute(new TestExecutor());
-            return Content("Saved Successfully");
+            var shouldReturnOne = QueryExecutor.Execute(new TestBaseExecutor());
+            return Content("All CRUD Operations Completed Successfully.");
         }
     }
 
@@ -105,21 +99,15 @@ namespace TestProject.Controllers
         }
     }
 
-    public class TestExecutor : Query<int>
+    public class TestBaseExecutor : Query<int>
     {
         public override void Execute()
         {
-            var serviceProvider = DependencyInjectionHelpers.GetServiceProviderInstance();
-            var baseSqlExecutorOptions = serviceProvider.GetService<IBaseSqlExecutorOptions>();
+            var connectionInstance = GetIDbConnection();
             //
-            var something3 = baseSqlExecutorOptions.Connection.Query("SELECT 1;");
-            
-            var something = GetConnectionInstance()
-                .Query("SELECT 1;");
+            var result = connectionInstance.QueryFirst("SELECT 1;");
 
-            Result = 1;
-            
-            var somethingType = something.GetType();
+            Result = result;
         }
     }
 

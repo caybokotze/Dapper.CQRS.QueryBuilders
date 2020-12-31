@@ -33,6 +33,7 @@ namespace DapperDoodle
 
         public T Execute<T>(Query<T> query)
         {
+            query.InitialiseDependencies(Options);
             ExecuteWithNoResult(query);
             return query.Result;
         }

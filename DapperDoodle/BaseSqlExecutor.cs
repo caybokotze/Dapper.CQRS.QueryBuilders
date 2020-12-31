@@ -26,7 +26,7 @@ namespace DapperDoodle
             return (T)_connection.Query<T>(sql, parameters);
         }
 
-        public IDbConnection GetConnectionInstance()
+        public IDbConnection GetIDbConnection()
         {
             return _connection;
         }
