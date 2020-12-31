@@ -4,7 +4,7 @@ Created: Dec 22, 2020 7:12 AM
 
 # Description
 
-> Dapper doodle is a CQRS wrapper for dapper. The idea behind dapper doodle is to get up and running with dapper quickly, by providing a set of base classes and interfaces that can assist you to get up and running a lot quicker.
+> Dapper doodle is a CQRS wrapper for dapper. The idea behind dapper doodle is to get up and running with dapper quickly, by providing a set of base classes and interfaces that can assist you to get up and running and building database queries quickly. (With the added benefit of being able to drop down to native sql with ease.)
 
 # WTF is Dapper
 
