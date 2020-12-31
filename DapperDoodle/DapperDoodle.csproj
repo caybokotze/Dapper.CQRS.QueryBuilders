@@ -2,6 +2,15 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Authors>Caybo Kotze</Authors>
+        <Company>The Bit Foundry</Company>
+        <Description>Dapper Doodle is a CQRS wrapper for dapper to speed up getting started with dapper and create your own dapper doodles. Dependency injection setup is all done on your behalf to make life bearable.</Description>
+        <RepositoryUrl>https://github.com/caybokotze/dapper-doodle</RepositoryUrl>
+        <RepositoryType>github</RepositoryType>
+        <PackageTags>dapper, micro-orm, asp.net, c#</PackageTags>
+        <PackageIcon>20180728_195602.png</PackageIcon>
+        <PackageId>Dapper.Doodle</PackageId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -10,6 +19,13 @@
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.0" />
       <PackageReference Include="MySql.Data" Version="8.0.22" />
       <PackageReference Include="PluralizeService.Core" Version="1.2.19339.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="..\..\..\..\Users\caybo.kotze\Downloads\20180728_195602.png">
+        <Pack>True</Pack>
+        <PackagePath></PackagePath>
+      </None>
     </ItemGroup>
 
 </Project>

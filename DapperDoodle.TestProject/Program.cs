@@ -19,9 +19,4 @@ namespace TestProject
                     webBuilder.UseStartup<Startup>();
                 });
     }
-
-    public static class ServiceProviderFactory
-    {
-        
-    }
 }
