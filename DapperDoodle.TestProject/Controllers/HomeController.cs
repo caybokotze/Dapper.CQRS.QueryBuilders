@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Data.Common;
 using System.Linq;
-using Dapper;
 using DapperDoodle;
 using DapperDoodle.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using PeanutButter.Utils;
-using static PeanutButter.RandomGenerators.RandomValueGen;
+using TestProject.Commands;
+using TestProject.Queries;
 
 namespace TestProject.Controllers
 {
@@ -36,93 +36,5 @@ namespace TestProject.Controllers
             var shouldReturnOne = QueryExecutor.Execute(new TestBaseExecutor());
             return Content("All CRUD Operations Completed Successfully.");
         }
-    }
-
-    public class InsertAPerson : Command<Person>
-    {
-        public override void Execute()
-        {
-            var person = new Person()
-            {
-                Name = GetRandomString(),
-                Surname = GetRandomString()
-            };
-            
-            person.Id = BuildInsert<Person>(person, null, Case.Lowercase, new { Id = 0 });
-            
-            Result = person;
-        }
-    }
-
-    public class UpdateAPerson : Command
-    {
-        public Person Person { get; }
-
-        public UpdateAPerson(Person person)
-        {
-            Person = person;
-        }
-        public override void Execute()
-        {
-            BuildUpdate<Person>(new Person()
-            {
-                Id = Person.Id,
-                Name = GetRandomString(),
-                Surname = GetRandomString()
-            });
-        }
-    }
-
-    public class DeleteAPerson : Command
-    {
-        public override void Execute()
-        {
-            BuildDelete<Person>(new Person()
-            {
-                Name = GetRandomString(),
-                Surname = GetRandomString()
-            });
-        }
-    }
-    
-    public class SelectAPerson : Query<Person>
-    {
-        private readonly int _id;
-
-        public SelectAPerson(int Id)
-        {
-            _id = Id;
-        }
-        public override void Execute()
-        {
-            Result = BuildSelect<Person>("where id = @Id", new { Id = _id });
-        }
-    }
-
-    public class TestBaseExecutor : Query<int>
-    {
-        public override void Execute()
-        {
-            var connectionInstance = GetIDbConnection();
-            //
-            var result = connectionInstance.QueryFirst("SELECT 1;");
-
-            Result = result;
-        }
-    }
-
-    public class SeedPeopleTable : Command
-    {
-        public override void Execute()
-        {
-            Execute("CREATE TABLE IF NOT EXISTS people (id INTEGER PRIMARY KEY, name TEXT NOT NULL, surname TEXT NOT NULL);");
-        }
-    }
-
-    public class Person
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
     }
 }
