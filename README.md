@@ -6,6 +6,10 @@ Created: Dec 22, 2020 7:12 AM
 
 > Dapper doodle is a CQRS wrapper for dapper. The idea behind dapper doodle is to get up and running with dapper quickly, by providing a set of base classes and interfaces that can assist you to get up and running a lot quicker.
 
+# WTF is Dapper
+
+Dapper is a lightweight micro-ORM developed by Stack-Overflow as an alternative to entity framework. A developer at stack overflow built it to solve the issue they were having with Entity Frameworks bulky slow queries. It's almost as quick as ADO.NET but easier to use and map objects against each other.
+
 # What is CQRS?
 
 CQRS stands for Command Query Responsibility Segregation. The idea behind it is to be able to separate your commands (DML) and your queries (DQL). CQRS is a great pattern to follow for small or large systems and offers the flexibility to keep all your database interactions very structured and orderly. It is quite similar to the repository pattern, however instead of using interfaces as abstractions we are abstracting every database transaction as a class instead of the context oriented model.
