@@ -22,16 +22,6 @@ namespace TestProject
 
     public static class ServiceProviderFactory
     {
-        public static IServiceProvider ServiceProvider { get; }
-
-        static ServiceProviderFactory()
-        {
-            var host = Host.CreateDefaultBuilder().ConfigureWebHostDefaults(builder =>
-                {
-                    builder.UseStartup<Startup>();
-                }).Build();
-            ServiceProvider = host.Services;
-            host.Run();
-        }
+        
     }
 }

@@ -1,7 +1,15 @@
-﻿using System.Transactions;
+﻿using System;
+using System.Threading.Tasks;
+using System.Transactions;
 using DapperDoodle.Tests.TestModels;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using NExpect;
+using NSubstitute.Extensions;
 using NUnit.Framework;
 using PeanutButter.Utils;
 using TestProject;
@@ -14,6 +22,24 @@ namespace DapperDoodle.Tests
     [TestFixture]
     public class CommandTests
     {
+        private IServiceProvider _serviceProvider;
+        private ICommandExecutor _commandExecutor;
+        
+        public void Init()
+        {
+            var services = new ServiceCollection();
+            services.AddOptions();
+            services.ConfigureDapperDoodle(null, DBMS.SQLite);
+            _serviceProvider = services.BuildServiceProvider();
+            _commandExecutor = _serviceProvider.GetService<ICommandExecutor>();
+        }
+
+        [Test]
+        public void TestOne()
+        {
+            var command = _commandExecutor;
+        }
+        
         [TestFixture]
         public class Behaviour
         {
@@ -63,19 +89,9 @@ namespace DapperDoodle.Tests
             }
         }
 
+        [TestFixture]
         public class Transactions
         {
-            public ICommandExecutor CommandExecutor { get; set; }
-            public IQueryExecutor QueryExecutor { get; set; }
-
-            [SetUp]
-            public void Setup()
-            {
-                ServiceProvider.CreateHost();
-                CommandExecutor = ServiceActivator.GetScope().ServiceProvider.GetService<ICommandExecutor>();
-                QueryExecutor = ServiceActivator.GetScope().ServiceProvider.GetService<IQueryExecutor>();
-            }
-            
             [Test]
             public void ShouldInsertRecordForMySql()
             {
@@ -88,7 +104,7 @@ namespace DapperDoodle.Tests
 
                     command.BuildInsert<Person>(person);
 
-                    CommandExecutor.Execute(new InsertPerson(person));
+                    //_commandExecutor.Execute(new InsertPerson(person));
                     
                     scope.Complete();
                 }
