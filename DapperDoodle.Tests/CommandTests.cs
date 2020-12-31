@@ -1,10 +1,13 @@
 ﻿using System.Transactions;
+using DapperDoodle.Tests.TestModels;
 using Microsoft.Extensions.DependencyInjection;
 using NExpect;
 using NUnit.Framework;
+using PeanutButter.Utils;
 using TestProject;
 using static NExpect.Expectations;
 using static PeanutButter.RandomGenerators.RandomValueGen;
+using ServiceProvider = TestProject.ServiceProvider;
 
 namespace DapperDoodle.Tests
 {
@@ -68,10 +71,9 @@ namespace DapperDoodle.Tests
             [SetUp]
             public void Setup()
             {
-                var serviceProvider = ServiceProviderFactory.ServiceProvider;
-                
-                CommandExecutor = serviceProvider.GetService<ICommandExecutor>();
-                QueryExecutor = serviceProvider.GetService<IQueryExecutor>();
+                ServiceProvider.CreateHost();
+                CommandExecutor = ServiceActivator.GetScope().ServiceProvider.GetService<ICommandExecutor>();
+                QueryExecutor = ServiceActivator.GetScope().ServiceProvider.GetService<IQueryExecutor>();
             }
             
             [Test]
@@ -82,15 +84,11 @@ namespace DapperDoodle.Tests
                     var command = Create();
                     command.Dbms = DBMS.MySQL;
 
-                    var person = new Person()
-                    {
-                        Name = "John",
-                        Surname = "Simmons"
-                    };
+                    var person = Person.Create();
 
                     command.BuildInsert<Person>(person);
 
-                    CommandExecutor.Execute(new InsertPerson(GetRandomPerson()));
+                    CommandExecutor.Execute(new InsertPerson(person));
                     
                     scope.Complete();
                 }
@@ -120,21 +118,6 @@ namespace DapperDoodle.Tests
             }
         }
 
-        public class Person
-        {
-            public string Name { get; set; }
-            public string Surname { get; set; }
-        }
-
-        public static Person GetRandomPerson()
-        {
-            return new Person()
-            {
-                Name = GetRandomString(),
-                Surname = GetRandomString()
-            };
-        }
-        
         public static Command Create()
         {
             return new RandomCommand();

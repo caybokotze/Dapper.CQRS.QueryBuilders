@@ -9,6 +9,7 @@ namespace DapperDoodle
         {
             var factory = new DefaultServiceProviderFactory();
             var serviceCollection = new ServiceCollection();
+            factory.CreateBuilder(serviceCollection);
             return factory.CreateServiceProvider(serviceCollection);
         }
     }
