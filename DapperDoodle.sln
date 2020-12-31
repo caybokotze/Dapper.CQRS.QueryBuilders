@@ -4,8 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperDoodle", "DapperDoodl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperDoodle.Tests", "DapperDoodle.Tests\DapperDoodle.Tests.csproj", "{EAC95ECE-2EBA-4B7D-A226-0D90194035A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperDoodle.TestProject", "DapperDoodle.TestProject\DapperDoodle.TestProject.csproj", "{C9479417-8562-4420-AAB3-F136E1574E09}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
