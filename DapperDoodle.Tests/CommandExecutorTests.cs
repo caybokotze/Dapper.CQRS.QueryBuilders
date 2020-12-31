@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NUnit.Framework;
+using static PeanutButter.RandomGenerators.RandomValueGen;
 
 namespace DapperDoodle.Tests
 {
@@ -40,16 +41,24 @@ namespace DapperDoodle.Tests
                 
                 var commandExecutor = serviceProvider
                     .GetService<ICommandExecutor>();
-                var result = commandExecutor.Execute(new CommandInheritor());
+                
+                var actual = GetRandomInt();
+                var expected = commandExecutor.Execute(new CommandInheritor(actual));
             
-                Assert.AreEqual(result, 9);
+                Assert.AreEqual(actual, expected);
             }
             
             public class CommandInheritor : Command<int>
             {
+                private readonly int _expectedReturnValue;
+
+                public CommandInheritor(int expectedReturnValue)
+                {
+                    _expectedReturnValue = expectedReturnValue;
+                }
                 public override void Execute()
                 {
-                    Result = SelectQuery<int>("Select 9;");
+                    Result = SelectQuery<int>($"Select {_expectedReturnValue};");
                 }
             }
         }

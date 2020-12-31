@@ -1,21 +1,9 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Transactions;
 using DapperDoodle.Tests.TestModels;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using NExpect;
-using NSubstitute.Extensions;
 using NUnit.Framework;
-using PeanutButter.Utils;
-using TestProject;
 using static NExpect.Expectations;
-using static PeanutButter.RandomGenerators.RandomValueGen;
-using ServiceProvider = TestProject.ServiceProvider;
 
 namespace DapperDoodle.Tests
 {
@@ -24,15 +12,6 @@ namespace DapperDoodle.Tests
     {
         private IServiceProvider _serviceProvider;
         private ICommandExecutor _commandExecutor;
-        
-        public void Init()
-        {
-            var services = new ServiceCollection();
-            services.AddOptions();
-            services.ConfigureDapperDoodle(null, DBMS.SQLite);
-            _serviceProvider = services.BuildServiceProvider();
-            _commandExecutor = _serviceProvider.GetService<ICommandExecutor>();
-        }
 
         [Test]
         public void TestOne()
@@ -97,16 +76,7 @@ namespace DapperDoodle.Tests
             {
                 using (var scope = new TransactionScope())
                 {
-                    var command = Create();
-                    command.Dbms = DBMS.MySQL;
-
-                    var person = Person.Create();
-
-                    command.BuildInsert<Person>(person);
-
-                    //_commandExecutor.Execute(new InsertPerson(person));
-                    
-                    scope.Complete();
+                    // todo: complete...
                 }
             }
         }
