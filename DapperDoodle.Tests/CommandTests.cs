@@ -13,12 +13,6 @@ namespace DapperDoodle.Tests
         private IServiceProvider _serviceProvider;
         private ICommandExecutor _commandExecutor;
 
-        [Test]
-        public void TestOne()
-        {
-            var command = _commandExecutor;
-        }
-        
         [TestFixture]
         public class Behaviour
         {
@@ -31,7 +25,7 @@ namespace DapperDoodle.Tests
 
                 // Act
                 var insertStatement = command.BuildInsertStatement<Person>();
-                var expected = @"INSERT INTO `people` (name, surname) VALUES (@Name, @Surname); SELECT LAST_INSERT_ID();";
+                var expected = @"INSERT INTO `people` (id, name, surname, email) VALUES (@Id, @Name, @Surname, @Email); SELECT LAST_INSERT_ID();";
                 
                 // Assert
                 Expect(insertStatement).To.Equal(expected);
@@ -46,7 +40,7 @@ namespace DapperDoodle.Tests
 
                 // Act
                 var insertStatement = command.BuildInsertStatement<Person>();
-                var expected = @"INSERT INTO people (name, surname) VALUES (@Name, @Surname); SELECT last_insert_rowid();";
+                var expected = @"INSERT INTO people (id, name, surname, email) VALUES (@Id, @Name, @Surname, @Email); SELECT last_insert_rowid();";
                 
                 // Assert
                 Expect(insertStatement).To.Equal(expected);
@@ -61,7 +55,7 @@ namespace DapperDoodle.Tests
 
                 // Act
                 var insertStatement = command.BuildInsertStatement<Person>();
-                var expected = @"INSERT INTO [people] (name, surname) VALUES (@Name, @Surname); SELECT SCOPE_IDENTITY();";
+                var expected = @"INSERT INTO [people] (id, name, surname, email) VALUES (@Id, @Name, @Surname, @Email); SELECT SCOPE_IDENTITY();";
                 
                 // Assert
                 Expect(insertStatement).To.Equal(expected);
@@ -73,6 +67,24 @@ namespace DapperDoodle.Tests
         {
             [Test]
             public void ShouldInsertRecordForMySql()
+            {
+                using (var scope = new TransactionScope())
+                {
+                    // todo: complete...
+                }
+            }
+            
+            [Test]
+            public void ShouldUpdateRecordForMySql()
+            {
+                using (var scope = new TransactionScope())
+                {
+                    // todo: complete...
+                }
+            }
+            
+            [Test]
+            public void ShouldDeleteRecordForMySql()
             {
                 using (var scope = new TransactionScope())
                 {
