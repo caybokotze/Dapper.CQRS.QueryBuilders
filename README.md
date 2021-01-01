@@ -300,7 +300,3 @@ Testing coverage currently covers:
 - Dependency registrations for MSSQL.
 - Dependency registrations for MySql.
 - Dependency registrations for SqlLite.
-
-# Read Me
-
-Please view the readme on the master branch [here](https://github.com/caybokotze/dapper-doodle).
