@@ -38,12 +38,12 @@ namespace DapperDoodle
         /// Override to specify the casing that should be used for the table and variable names.
         /// </summary>
         /// <param name="command"></param>
-        /// <param name="casing"></param>
+        /// <param name="case"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static string BuildInsertStatement<T>(this Command command, Case casing)
+        public static string BuildInsertStatement<T>(this Command command, Case @case)
         {
-            return BuildInsertStatement<T>(command, null, casing);
+            return BuildInsertStatement<T>(command, null, @case);
         }
 
         /// <summary>
@@ -51,17 +51,17 @@ namespace DapperDoodle
         /// </summary>
         /// <param name="command"></param>
         /// <param name="table"></param>
-        /// <param name="casing"></param>
+        /// <param name="case"></param>
         /// <param name="removeParameters"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static string BuildInsertStatement<T>(this Command command, string table, Case casing, object removeParameters = null)
+        public static string BuildInsertStatement<T>(this Command command, string table, Case @case, object removeParameters = null)
         {
             var dt = typeof(T).ObjectToDataTable();
 
             if (table is null)
-                table = typeof(T).Name.Pluralize().ConvertCase(casing);
+                table = typeof(T).Name.Pluralize().ConvertCase(@case);
 
             
             var sqlStatement = new StringBuilder();
@@ -96,7 +96,7 @@ namespace DapperDoodle
 
             foreach (DataColumn column in dt.Columns)
             {
-                sqlStatement.Append($"{column.ColumnName.ConvertCase(casing)}, ");
+                sqlStatement.Append($"{column.ColumnName.ConvertCase(@case)}, ");
             }
 
             sqlStatement.Remove(sqlStatement.Length -2, 2);
@@ -134,9 +134,9 @@ namespace DapperDoodle
         /// <param name="clause"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static string BuildUpdateStatement<T>(this Command command, Case casing, string clause)
+        public static string BuildUpdateStatement<T>(this Command command, Case @case, string clause)
         {
-            return BuildUpdateStatement<T>(command, null, casing, clause);
+            return BuildUpdateStatement<T>(command, null, @case, clause);
         }
         
         /// <summary>
@@ -144,17 +144,17 @@ namespace DapperDoodle
         /// </summary>
         /// <param name="command"></param>
         /// <param name="table"></param>
-        /// <param name="casing"></param>
+        /// <param name="case"></param>
         /// <param name="clause"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         /// <exception cref="InvalidDatabaseTypeException"></exception>
-        public static string BuildUpdateStatement<T>(this Command command, string table, Case casing, string clause)
+        public static string BuildUpdateStatement<T>(this Command command, string table, Case @case, string clause)
         {
             var dt = typeof(T).ObjectToDataTable();
 
             if (table is null)
-                table = typeof(T).Name.Pluralize().ConvertCase(casing);
+                table = typeof(T).Name.Pluralize().ConvertCase(@case);
             
             if (clause is null)
                 clause = "WHERE id = @Id;";
@@ -180,7 +180,7 @@ namespace DapperDoodle
             
             foreach (DataColumn column in dt.Columns)
             {
-                sqlStatement.Append($"{column.ColumnName.ConvertCase(casing)} = @{column.ColumnName}, ");
+                sqlStatement.Append($"{column.ColumnName.ConvertCase(@case)} = @{column.ColumnName}, ");
             }
 
             sqlStatement.Remove(sqlStatement.Length - 2, 2);
@@ -210,10 +210,10 @@ namespace DapperDoodle
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         /// <exception cref="InvalidDatabaseTypeException"></exception>
-        public static string BuildDeleteStatement<T>(this Command command, string table, Case casing, string clause)
+        public static string BuildDeleteStatement<T>(this Command command, string table, Case @case, string clause)
         {
             if (table is null)
-                table = typeof(T).Name.Pluralize().ConvertCase(casing);
+                table = typeof(T).Name.Pluralize().ConvertCase(@case);
                 
             if (clause is null)
                 clause = "WHERE id = @Id";
