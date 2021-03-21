@@ -4,12 +4,13 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Authors>Caybo Kotze</Authors>
-        <Company>The Bit Foundry</Company>
+        <Company>Merge Digital</Company>
         <Description>Dapper Doodle is a CQRS wrapper for dapper to speed up getting started with dapper and create your own dapper doodles. Dependency injection setup is all done on your behalf to make life bearable.</Description>
         <RepositoryUrl>https://github.com/caybokotze/dapper-doodle</RepositoryUrl>
         <RepositoryType>github</RepositoryType>
         <PackageTags>dapper, micro-orm, asp.net, c#, cqrs</PackageTags>
         <PackageId>Dapper.Doodle</PackageId>
+        <Version>1.1.0</Version>
     </PropertyGroup>
 
     <ItemGroup>

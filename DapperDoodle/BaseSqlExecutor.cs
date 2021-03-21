@@ -19,7 +19,7 @@ namespace DapperDoodle
 
         protected T QueryFirst<T>(string sql, object parameters = null)
         {
-            return (T)_connection.Query<T>(sql, parameters);
+            return _connection.QueryFirst<T>(sql, parameters);
         }
         
         protected List<T> QueryList<T>(string sql, object parameters = null)
