@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Data;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using PluralizeService.Core;
 
@@ -8,17 +10,16 @@ namespace DapperDoodle
 {
     public static class BuilderHelpers
     {
-        public static DataTable ObjectToDataTable(this Type obj)
+        public static DataTable DataTableForType(this Type type)
         {
-            var dt = new DataTable();
-            var props = TypeDescriptor.GetProperties(obj);
-            
-            foreach (PropertyDescriptor p in props)
-            {
-                dt.Columns.Add(p.Name, p.PropertyType);
-            }
-
-            return dt;
+            return (type?.GetProperties() ?? Array.Empty<PropertyInfo>())
+                .Aggregate(
+                    new DataTable(),
+                    (acc, cur) =>
+                    {
+                        acc.Columns.Add(cur.Name, cur.PropertyType);
+                        return acc;
+                    });
         }
 
         public static string Pluralize(this string value)

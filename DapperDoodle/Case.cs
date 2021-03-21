@@ -35,37 +35,32 @@ namespace DapperDoodle
                 case Case.Uppercase:
                     return value.ToUpperInvariant();
                 case Case.CamelCase:
-                    return char.ToLowerInvariant(value[0]) + value.Substring(1);
+                    return string.IsNullOrEmpty(value)
+                        ? throw new NullReferenceException(nameof(value))
+                        : value.ToCamelCase();
                 case Case.PascalCase:
                 {
-                    var textInfo = new CultureInfo("en-Us", false).TextInfo;
-                    return textInfo
-                        .ToString()
-                        .ToPascalCase();
+                    return string.IsNullOrEmpty(value)
+                        ? throw new NullReferenceException(nameof(value))
+                        : value.ToPascalCase();
                 }
                 case Case.IgnoreCase:
                     return value;
                 case Case.KebabCase:
                 {
-                    if (string.IsNullOrEmpty(value))
-                    {
-                        return value;
-                    }
-
-                    return value.ToKebabCase();
+                    return string.IsNullOrEmpty(value)
+                        ? throw new ArgumentNullException(nameof(value)) 
+                        : value.ToKebabCase();
                 }
                 case Case.SnakeCase:
                 {
-                    if (value is null)
-                    {
-                        throw new ArgumentNullException(nameof(value));
-                    }
-
-                    return value.ToSnakeCase();
+                    return string.IsNullOrEmpty(value)
+                        ? throw new ArgumentNullException(nameof(value))
+                        : value.ToSnakeCase();
                 }
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(casing), casing, null);
             }
-
-            return value;
         }
     }
 }

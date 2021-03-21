@@ -58,7 +58,7 @@ namespace DapperDoodle
         /// <exception cref="ArgumentException"></exception>
         public static string BuildInsertStatement<T>(this Command command, string table, Case @case, object removeParameters = null)
         {
-            var dt = typeof(T).ObjectToDataTable();
+            var dt = typeof(T).DataTableForType();
 
             if (table is null)
                 table = typeof(T).Name.Pluralize().ConvertCase(@case);
@@ -151,7 +151,7 @@ namespace DapperDoodle
         /// <exception cref="InvalidDatabaseTypeException"></exception>
         public static string BuildUpdateStatement<T>(this Command command, string table, Case @case, string clause)
         {
-            var dt = typeof(T).ObjectToDataTable();
+            var dt = typeof(T).DataTableForType();
 
             if (table is null)
                 table = typeof(T).Name.Pluralize().ConvertCase(@case);
