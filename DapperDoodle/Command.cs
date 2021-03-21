@@ -71,8 +71,10 @@ namespace DapperDoodle
         /// <exception cref="InvalidSqlStatementException"></exception>
         public int InsertAndReturnId(string sql, object parameters = null)
         {
-            if(sql is null)
+            if (sql is null)
+            {
                 throw new InvalidSqlStatementException();
+            }
 
             this.AppendReturnId(sql);
             
