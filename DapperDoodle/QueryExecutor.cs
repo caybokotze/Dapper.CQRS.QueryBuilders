@@ -13,12 +13,6 @@ namespace DapperDoodle
         {
             Options = services.GetService<IBaseSqlExecutorOptions>();
         }
-        
-        public void Execute(Query query)
-        {
-            query.InitialiseDependencies(Options);
-            ExecuteWithNoResult(query);
-        }
 
         private void ExecuteWithNoResult(Query query)
         {
@@ -36,19 +30,6 @@ namespace DapperDoodle
             query.InitialiseDependencies(Options);
             ExecuteWithNoResult(query);
             return query.Result;
-        }
-
-        public void Execute(IEnumerable<Query> queries)
-        {
-            if (queries == null)
-            {
-                throw new ArgumentNullException(nameof (queries));
-            }
-
-            foreach (Query query in queries)
-            {
-                Execute(query);
-            }
         }
     }
 }

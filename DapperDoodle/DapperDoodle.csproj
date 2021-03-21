@@ -21,11 +21,4 @@
       <PackageReference Include="PluralizeService.Core" Version="1.2.19339.3" />
     </ItemGroup>
 
-    <ItemGroup>
-      <None Include="..\..\..\..\Users\caybo.kotze\Downloads\20180728_195602.png">
-        <Pack>True</Pack>
-        <PackagePath></PackagePath>
-      </None>
-    </ItemGroup>
-
 </Project>
