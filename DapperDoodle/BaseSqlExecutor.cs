@@ -34,8 +34,10 @@ namespace DapperDoodle
 
         protected int Execute(string sql, object parameters = null)
         {
-            if (sql.Equals("", StringComparison.InvariantCulture) || sql is null)
+            if (string.IsNullOrWhiteSpace(sql))
+            {
                 throw new ArgumentException("Please specify a value for the sql attribute.");
+            }
             
             return _connection.Execute(sql, parameters);
         }
