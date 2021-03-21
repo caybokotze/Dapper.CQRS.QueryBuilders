@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Reflection;
@@ -17,7 +16,9 @@ namespace DapperDoodle
                     new DataTable(),
                     (acc, cur) =>
                     {
-                        acc.Columns.Add(cur.Name, cur.PropertyType);
+                        acc.Columns.Add(cur.Name,
+                            Nullable.GetUnderlyingType(cur.PropertyType)
+                            ?? cur.PropertyType);
                         return acc;
                     });
         }
