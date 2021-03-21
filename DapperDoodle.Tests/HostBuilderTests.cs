@@ -37,7 +37,7 @@ namespace DapperDoodle.Tests
             var actual = await response.Content.ReadAsStringAsync();
             
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(expected.Equals(actual));
         }
     }
 }

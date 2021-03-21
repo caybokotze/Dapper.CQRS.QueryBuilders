@@ -58,10 +58,9 @@ namespace DapperDoodle
         /// <exception cref="ArgumentException"></exception>
         public static string BuildInsertStatement<T>(this Command command, string table, Case @case, object removeParameters = null)
         {
-            var dt = typeof(T).ObjectToDataTable();
+            var dt = typeof(T).DataTableForType();
 
-            if (table is null)
-                table = typeof(T).Name.Pluralize().ConvertCase(@case);
+            table ??= typeof(T).Name.Pluralize().ConvertCase(@case);
 
             
             var sqlStatement = new StringBuilder();
@@ -130,7 +129,7 @@ namespace DapperDoodle
         /// Returns a SQL UPDATE statement with the override for a where clause to specify the where condition.
         /// </summary>
         /// <param name="command"></param>
-        /// <param name="casing"></param>
+        /// <param name="case"></param>
         /// <param name="clause"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
@@ -151,7 +150,7 @@ namespace DapperDoodle
         /// <exception cref="InvalidDatabaseTypeException"></exception>
         public static string BuildUpdateStatement<T>(this Command command, string table, Case @case, string clause)
         {
-            var dt = typeof(T).ObjectToDataTable();
+            var dt = typeof(T).DataTableForType();
 
             if (table is null)
                 table = typeof(T).Name.Pluralize().ConvertCase(@case);

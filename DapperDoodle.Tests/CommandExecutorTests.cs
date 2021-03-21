@@ -58,7 +58,7 @@ namespace DapperDoodle.Tests
                 }
                 public override void Execute()
                 {
-                    Result = SelectQuery<int>($"Select {_expectedReturnValue};");
+                    Result = QueryFirst<int>($"Select {_expectedReturnValue};");
                 }
             }
         }

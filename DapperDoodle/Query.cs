@@ -1,36 +1,35 @@
-﻿using DapperDoodle.Interfaces;
+﻿using System.Collections.Generic;
+using DapperDoodle.Interfaces;
 
 namespace DapperDoodle
 {
     public abstract class Query<T> : Query
     {
-        public T Result { get; set; }
+        public T Result { get; protected set; }
     }
     
     public abstract class Query : BaseSqlExecutor
     {
-        public IQueryExecutor QueryExecutor { get; set; }
-
         public abstract void Execute();
 
-        public T BuildSelect<T>(object parameters = null)
+        public List<T> BuildSelect<T>(object parameters = null)
         {
-            return SelectQuery<T>(this.BuildSelectStatement<T>(), parameters);
+            return QueryList<T>(this.BuildSelectStatement<T>(), parameters);
         }
         
-        public T BuildSelect<T>(Case @case)
+        public List<T> BuildSelect<T>(Case @case)
         {
-            return SelectQuery<T>(this.BuildSelectStatement<T>(@case));
+            return QueryList<T>(this.BuildSelectStatement<T>(@case));
         }
 
-        public T BuildSelect<T>(string clause, object parameters = null)
+        public List<T> BuildSelect<T>(string clause, object parameters = null)
         {
-            return SelectQuery<T>(this.BuildSelectStatement<T>(null, clause), parameters);
+            return QueryList<T>(this.BuildSelectStatement<T>(null, clause), parameters);
         }
         
-        public T BuildSelect<T>(string table, string clause, object parameters = null)
+        public List<T> BuildSelect<T>(string table, string clause, object parameters = null)
         {
-            return SelectQuery<T>(this.BuildSelectStatement<T>(table, clause), parameters: parameters);
+            return QueryList<T>(this.BuildSelectStatement<T>(table, clause), parameters: parameters);
         }
     }
 }

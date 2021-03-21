@@ -14,7 +14,9 @@ namespace DapperDoodle
             DBMS dbms)
         {
             if (services is null)
+            {
                 throw new NullReferenceException("The service collection Specified is invalid");
+            }
             
             ConfigureCqrsInterfaces(services);
             

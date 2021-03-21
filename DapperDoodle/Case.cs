@@ -1,7 +1,5 @@
 using System;
-using System.Globalization;
-using System.Text;
-using System.Text.RegularExpressions;
+using PeanutButter.Utils;
 
 namespace DapperDoodle
 {
@@ -22,65 +20,170 @@ namespace DapperDoodle
         /// The ConvertCase method currently only supports conversions from Pascal Case to everything else. Other support can later be added.
         /// </summary>
         /// <param name="value"></param>
-        /// <param name="casing"></param>
+        /// <param name="case"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static string ConvertCase(this string value, Case casing)
+        public static string ConvertCase(this string value, Case @case)
         {
-            switch (casing)
-            {
-                case Case.Lowercase:
-                    return value.ToLowerInvariant();
-                case Case.Uppercase:
-                    return value.ToUpperInvariant();
-                case Case.CamelCase:
-                    return char.ToLowerInvariant(value[0]) + value.Substring(1);
-                case Case.PascalCase:
-                {
-                    var textInfo = new CultureInfo("en-Us", false).TextInfo;
-                    return textInfo.ToTitleCase(value);
-                }
-                case Case.IgnoreCase:
-                    return value;
-                case Case.KebabCase:
-                {
-                    if (string.IsNullOrEmpty(value))
-                    {
-                        return value;
-                    }
-                    return Regex.Replace(value,
-                            "(?<!^)([A-Z][a-z]|(?<=[a-z])[A-Z])",
-                            "-$1")
-                        .Trim()
-                        .ToLower();
-                }
-                case Case.SnakeCase:
-                {
-                    if(value is null)
-                        throw new ArgumentNullException(nameof(value));
-                    if (value.Length < 2)
-                        return value;
-                    var sb = new StringBuilder();
-                    sb.Append(char.ToLowerInvariant(value[0]));
-                    for (int i = 1; i < value.Length; ++i)
-                    {
-                        char c = value[i];
-                        if (char.IsUpper(c))
-                        {
-                            sb.Append('_');
-                            sb.Append(char.ToLowerInvariant(c));
-                        }
-                        else
-                        {
-                            sb.Append(c);
-                        }
-                    }
+            var returnValue = "";
+            
+            var
+                context = new ConversionContext(new ConvertToUpperCase(value, @case));
+            returnValue = context.CallConvert();
+            
+            context = new ConversionContext(new ConvertToLowerCase(value, @case));
+            returnValue = context.CallConvert();
+            
+            context = new ConversionContext(new ConvertToCamelCase(value, @case));
+            returnValue = context.CallConvert();
 
-                    return sb.ToString();
-                }
-            }
+            context = new ConversionContext(new ConvertToPascalCase(value, @case));
+            returnValue = context.CallConvert();
 
-            return value;
+            context = new ConversionContext(new ConvertToKebabCase(value, @case));
+            returnValue = context.CallConvert();
+
+            context = new ConversionContext(new ConvertToSnakeCase(value, @case));
+            returnValue = context.CallConvert();
+
+            return @case is Case.IgnoreCase 
+                ? value 
+                : returnValue;
+        }
+    }
+
+    internal abstract class MethodOfConversion
+    {
+        public abstract string Convert();
+    }
+
+
+    internal class ConvertToLowerCase : MethodOfConversion
+    {
+        private readonly string _value;
+        private readonly Case _case;
+
+        public ConvertToLowerCase(string value, Case @case)
+        {
+            _value = value;
+            _case = @case;
+        }
+        
+        public override string Convert()
+        {
+            return _case.Equals(Case.Lowercase) 
+                ? _value.ToLowerInvariant() 
+                : _value;
+        }
+    }
+
+    internal class ConvertToUpperCase : MethodOfConversion
+    {
+        private readonly string _value;
+        private readonly Case _case;
+
+        public ConvertToUpperCase(string value, Case @case)
+        {
+            _value = value;
+            _case = @case;
+        }
+        
+        public override string Convert()
+        {
+            return _case.Equals(Case.Uppercase) 
+                ? _value.ToUpperInvariant() 
+                : _value;
+        }
+    }
+
+    internal class ConvertToCamelCase : MethodOfConversion
+    {
+        private readonly string _value;
+        private readonly Case _case;
+
+        public ConvertToCamelCase(string value, Case @case)
+        {
+            _value = value;
+            _case = @case;
+        }
+        
+        public override string Convert()
+        {
+            return _case.Equals(Case.CamelCase)
+                ? _value.ToCamelCase()
+                : _value;
+        }
+    }
+
+    internal class ConvertToPascalCase : MethodOfConversion
+    {
+        private readonly string _value;
+        private readonly Case _case;
+
+        public ConvertToPascalCase(string value, Case @case)
+        {
+            _value = value;
+            _case = @case;
+        }
+        
+        public override string Convert()
+        {
+            return _case.Equals(Case.PascalCase)
+                ? _value.ToPascalCase()
+                : _value;
+        }
+    }
+
+    internal class ConvertToKebabCase : MethodOfConversion
+    {
+        private readonly string _value;
+        private readonly Case _case;
+
+        public ConvertToKebabCase(string value, Case @case)
+        {
+            _value = value;
+            _case = @case;
+        }
+        
+        public override string Convert()
+        {
+            return _case.Equals(Case.KebabCase)
+                ? _value.ToKebabCase()
+                : _value;
+        }
+    }
+
+    internal class ConvertToSnakeCase : MethodOfConversion
+    {
+        private readonly string _value;
+        private readonly Case _case;
+
+        public ConvertToSnakeCase(string value, Case @case)
+        {
+            _value = value;
+            _case = @case;
+        }
+        
+        public override string Convert()
+        {
+            return _case.Equals(Case.SnakeCase)
+                ? _value.ToSnakeCase()
+                : _value;
+        }
+    }
+
+    internal class ConversionContext
+    {
+        private MethodOfConversion MethodOfConversion { get; }
+
+        public ConversionContext(MethodOfConversion methodOfConversion)
+        {
+            MethodOfConversion = methodOfConversion;
+        }
+
+        public string CallConvert()
+        {
+            return MethodOfConversion.Convert();
         }
     }
 }

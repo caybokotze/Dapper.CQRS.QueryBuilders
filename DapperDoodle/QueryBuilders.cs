@@ -24,7 +24,7 @@ namespace DapperDoodle
         
         public static string BuildSelectStatement<T>(this Query query, string table, Case casing, string clause = null)
         {
-            var dt = typeof(T).ObjectToDataTable();
+            var dt = typeof(T).DataTableForType();
 
             if (table is null)
                 table = typeof(T).Name.Pluralize().ConvertCase(casing);
