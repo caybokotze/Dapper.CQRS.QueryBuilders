@@ -16,12 +16,11 @@ namespace DapperDoodle
 
         private void ExecuteWithNoResult(Query query)
         {
-            if (query == null)
+            if (query is null)
             {
                 throw new ArgumentNullException(nameof(query));
             }
 
-            query.QueryExecutor = this;
             query.Execute();
         }
 

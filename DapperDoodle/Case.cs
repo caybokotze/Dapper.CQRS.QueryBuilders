@@ -51,35 +51,17 @@ namespace DapperDoodle
                     {
                         return value;
                     }
-                    return Regex.Replace(value,
-                            "(?<!^)([A-Z][a-z]|(?<=[a-z])[A-Z])",
-                            "-$1")
-                        .Trim()
-                        .ToLower();
+
+                    return value.ToKebabCase();
                 }
                 case Case.SnakeCase:
                 {
-                    if(value is null)
-                        throw new ArgumentNullException(nameof(value));
-                    if (value.Length < 2)
-                        return value;
-                    var sb = new StringBuilder();
-                    sb.Append(char.ToLowerInvariant(value[0]));
-                    for (int i = 1; i < value.Length; ++i)
+                    if (value is null)
                     {
-                        char c = value[i];
-                        if (char.IsUpper(c))
-                        {
-                            sb.Append('_');
-                            sb.Append(char.ToLowerInvariant(c));
-                        }
-                        else
-                        {
-                            sb.Append(c);
-                        }
+                        throw new ArgumentNullException(nameof(value));
                     }
 
-                    return sb.ToString();
+                    return value.ToSnakeCase();
                 }
             }
 

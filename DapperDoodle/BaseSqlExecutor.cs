@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using Dapper;
 using DapperDoodle.Interfaces;
@@ -16,14 +17,14 @@ namespace DapperDoodle
         private IDbConnection _connection;
         public DBMS Dbms { get; set; }
 
-        public T SelectQuery<T>(string sql, object parameters = null)
+        protected T QueryFirst<T>(string sql, object parameters = null)
         {
-            if (typeof(T) == typeof(int))
-            {
-                return _connection.QueryFirst<T>(sql, parameters);
-            }
-            
             return (T)_connection.Query<T>(sql, parameters);
+        }
+        
+        protected List<T> QueryList<T>(string sql, object parameters = null)
+        {
+            return (List<T>)_connection.Query<T>(sql, parameters);
         }
 
         public IDbConnection GetIDbConnection()

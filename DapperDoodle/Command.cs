@@ -24,42 +24,42 @@ namespace DapperDoodle
         /// <returns></returns>
         public int BuildInsert<T>(object parameters)
         {
-            return SelectQuery<int>(this.BuildInsertStatement<T>(), parameters: parameters);
+            return QueryFirst<int>(this.BuildInsertStatement<T>(), parameters: parameters);
         }
 
         public int BuildInsert<T>(object parameters, string table)
         {
-            return SelectQuery<int>(this.BuildInsertStatement<T>(table: table), parameters: parameters);
+            return QueryFirst<int>(this.BuildInsertStatement<T>(table: table), parameters: parameters);
         }
         
         public int BuildInsert<T>(object parameters, string table, Case @case)
         {
-            return SelectQuery<int>(this.BuildInsertStatement<T>(table: table, @case: @case), parameters: parameters);
+            return QueryFirst<int>(this.BuildInsertStatement<T>(table: table, @case: @case), parameters: parameters);
         }
         
         public int BuildInsert<T>(object parameters, string table, Case @case, object removeParameters)
         {
-            return SelectQuery<int>(this.BuildInsertStatement<T>(table: table, @case: @case, removeParameters: removeParameters), parameters: parameters);
+            return QueryFirst<int>(this.BuildInsertStatement<T>(table: table, @case: @case, removeParameters: removeParameters), parameters: parameters);
         }
         
         public int BuildUpdate<T>(object parameters, string clause)
         {
-            return SelectQuery<int>(this.BuildUpdateStatement<T>(table: null, clause: clause), parameters: parameters);
+            return QueryFirst<int>(this.BuildUpdateStatement<T>(table: null, clause: clause), parameters: parameters);
         }
         
         public int BuildUpdate<T>(object parameters, string table, string clause)
         {
-            return SelectQuery<int>(this.BuildUpdateStatement<T>(table: table, clause: clause), parameters: parameters);
+            return QueryFirst<int>(this.BuildUpdateStatement<T>(table: table, clause: clause), parameters: parameters);
         }
 
         public int BuildUpdate<T>(object parameters)
         {
-            return SelectQuery<int>(this.BuildUpdateStatement<T>(), parameters: parameters);
+            return QueryFirst<int>(this.BuildUpdateStatement<T>(), parameters: parameters);
         }
 
         public int BuildDelete<T>(object parameters)
         {
-            return SelectQuery<int>(this.BuildDeleteStatement<T>(), parameters: parameters);
+            return QueryFirst<int>(this.BuildDeleteStatement<T>(), parameters: parameters);
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace DapperDoodle
 
             this.AppendReturnId(sql);
             
-            return SelectQuery<int>(sql, parameters);
+            return QueryFirst<int>(sql, parameters);
         }
     }
 }
