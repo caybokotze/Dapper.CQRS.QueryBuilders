@@ -44,7 +44,7 @@ namespace DapperDoodle.Tests
                 var actual = GetRandomInt();
                 var expected = queryExecutor.Execute(new QueryInheritor(actual));
             
-                Assert.AreEqual(expected, actual);
+                Assert.That(expected.Equals(actual));
             }
         }
 

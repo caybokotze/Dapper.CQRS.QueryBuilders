@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
+using PeanutButter.Utils;
 
 namespace DapperDoodle
 {
@@ -38,7 +39,9 @@ namespace DapperDoodle
                 case Case.PascalCase:
                 {
                     var textInfo = new CultureInfo("en-Us", false).TextInfo;
-                    return textInfo.ToTitleCase(value);
+                    return textInfo
+                        .ToString()
+                        .ToPascalCase();
                 }
                 case Case.IgnoreCase:
                     return value;
