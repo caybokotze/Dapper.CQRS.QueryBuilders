@@ -11,15 +11,32 @@
         <PackageTags>dapper, micro-orm, asp.net, c#, cqrs</PackageTags>
         <PackageId>Dapper.Doodle</PackageId>
         <Version>1.1.0</Version>
+        <PackageReleaseNotes>Newer update of the dapper doodle package that supports single and multiple select queries.</PackageReleaseNotes>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <Copyright>A product of Merge Digital</Copyright>
+        <PackageIcon>dapper_mouse.png</PackageIcon>
+        <PackageLicenseFile>license.txt</PackageLicenseFile>
+        <LangVersion>9</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Dapper" Version="2.0.78" />
-      <PackageReference Include="Microsoft.Data.Sqlite" Version="5.0.1" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.0" />
-      <PackageReference Include="MySql.Data" Version="8.0.22" />
+      <PackageReference Include="Microsoft.Data.Sqlite" Version="5.0.4" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+      <PackageReference Include="MySql.Data" Version="8.0.23" />
       <PackageReference Include="PeanutButter.Utils" Version="2.0.11" />
-      <PackageReference Include="PluralizeService.Core" Version="1.2.19339.3" />
+      <PackageReference Include="PluralizeService.Core" Version="1.2.21070.12" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="dapper_mouse.png">
+        <Pack>True</Pack>
+        <PackagePath></PackagePath>
+      </None>
+      <None Include="license.txt">
+        <Pack>True</Pack>
+        <PackagePath></PackagePath>
+      </None>
     </ItemGroup>
 
 </Project>
