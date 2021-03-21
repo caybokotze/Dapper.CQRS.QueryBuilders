@@ -11,12 +11,15 @@
         <PackageTags>dapper, micro-orm, asp.net, c#, cqrs</PackageTags>
         <PackageId>Dapper.Doodle</PackageId>
         <Version>1.1.0</Version>
-        <PackageReleaseNotes>Newer update of the dapper doodle package that supports single and multiple select queries.</PackageReleaseNotes>
+        <PackageReleaseNotes>Bumped up dependencies.</PackageReleaseNotes>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <Copyright>A product of Merge Digital</Copyright>
         <PackageIcon>dapper_mouse.png</PackageIcon>
         <PackageLicenseFile>license.txt</PackageLicenseFile>
         <LangVersion>9</LangVersion>
+        <PackageVersion>1.1.1</PackageVersion>
+        <Title>Dapper Doodle</Title>
+        <PackageProjectUrl>https://mergedigital.io</PackageProjectUrl>
     </PropertyGroup>
 
     <ItemGroup>
