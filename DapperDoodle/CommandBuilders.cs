@@ -130,7 +130,7 @@ namespace DapperDoodle
         /// Returns a SQL UPDATE statement with the override for a where clause to specify the where condition.
         /// </summary>
         /// <param name="command"></param>
-        /// <param name="casing"></param>
+        /// <param name="case"></param>
         /// <param name="clause"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
