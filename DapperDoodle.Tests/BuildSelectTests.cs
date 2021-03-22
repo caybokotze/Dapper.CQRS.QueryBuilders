@@ -10,12 +10,6 @@ namespace DapperDoodle.Tests
     [TestFixture]
     public class BuildSelectTests
     {
-        [SetUp]
-        public void Setup()
-        {
-            // TestBuildSelect<Person> SelectPerson = new TestBuildSelect<Person>()
-        }
-        
         [Test]
         public void ShouldReturnSnakeCaseSelectStatement()
         {
