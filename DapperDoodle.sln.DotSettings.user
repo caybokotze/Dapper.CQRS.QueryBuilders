@@ -23,5 +23,7 @@
     &lt;TestId&gt;NUnit3x::EAC95ECE-2EBA-4B7D-A226-0D90194035A4::net5.0::DapperDoodle.Tests.CaseHelperTests.SnakeCase_DoesConvert_ToCamelCase&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::EAC95ECE-2EBA-4B7D-A226-0D90194035A4::net5.0::DapperDoodle.Tests.CaseHelperTests.SnakeCase_DoesConvert_ToKebabCase&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::EAC95ECE-2EBA-4B7D-A226-0D90194035A4::net5.0::DapperDoodle.Tests.CaseHelperTests.KebabCase_DoesConvert_ToPascalCase&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::EAC95ECE-2EBA-4B7D-A226-0D90194035A4::net5.0::DapperDoodle.Tests.BuildSelectTests.ShouldReturnCorrectSelect&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::EAC95ECE-2EBA-4B7D-A226-0D90194035A4::net5.0::DapperDoodle.Tests.BuildSelectTests.ShouldReturnSnakeCaseSelectStatement&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
