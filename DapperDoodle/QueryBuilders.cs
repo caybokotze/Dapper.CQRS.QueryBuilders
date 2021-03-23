@@ -28,11 +28,7 @@ namespace DapperDoodle
         {
             var dt = typeof(T).DataTableForType();
 
-            if (table is null)
-                table = typeof(T).Name.Pluralize().ConvertCase(casing);
-
-            if (clause is null)
-                clause = string.Empty;
+            table ??= typeof(T).Name.Pluralize().ConvertCase(casing);
             
             var sqlStatement = new StringBuilder();
             
@@ -71,8 +67,12 @@ namespace DapperDoodle
                     throw new InvalidDatabaseTypeException();
             }
 
-            sqlStatement.Append(" ");
-            sqlStatement.Append(clause);
+            if (clause != null)
+            {
+                sqlStatement.Append(" ");
+                sqlStatement.Append(clause);
+            }
+            
             sqlStatement.Append(";");
 
             return sqlStatement.ToString();
