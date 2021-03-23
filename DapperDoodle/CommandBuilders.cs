@@ -61,7 +61,6 @@ namespace DapperDoodle
             var dt = typeof(T).DataTableForType();
 
             table ??= typeof(T).Name.Pluralize().ConvertCase(@case);
-
             
             var sqlStatement = new StringBuilder();
 

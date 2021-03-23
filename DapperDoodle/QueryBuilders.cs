@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Reflection;
 using System.Text;
 using DapperDoodle.Exceptions;
 
@@ -22,7 +24,7 @@ namespace DapperDoodle
             return BuildSelectStatement<T>(query, null, @case);
         }
         
-        public static string BuildSelectStatement<T>(this Query query, string table, Case casing, string clause = null)
+        public static string BuildSelectStatement<T>(this Query query, string table, Case casing, string clause = null, object removeParameters = null)
         {
             var dt = typeof(T).DataTableForType();
 
@@ -31,6 +33,17 @@ namespace DapperDoodle
             var sqlStatement = new StringBuilder();
             
             var variables = new StringBuilder();
+
+            if (removeParameters != null)
+            {
+                var type = removeParameters.GetType();
+                var props = new List<PropertyInfo>(type.GetProperties());
+
+                foreach (var prop in props)
+                {
+                    dt.Columns.Remove(prop.Name);
+                }
+            }
 
             foreach (DataColumn column in dt.Columns)
             {
