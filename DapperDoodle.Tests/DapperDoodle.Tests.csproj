@@ -11,6 +11,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Faker.Net" Version="1.5.126" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="5.0.4" />
         <PackageReference Include="NExpect" Version="1.0.198" />
         <PackageReference Include="NExpect.Matchers.NSubstitute" Version="1.0.198" />

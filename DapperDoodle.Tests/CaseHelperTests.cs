@@ -9,7 +9,7 @@ namespace DapperDoodle.Tests
     public class CaseHelperTests
     {
         [TestCase("TheQuickBrownFoxJumps")]
-        public void CaseKebabCase_DoesConvert_PascalCaseToKebabCase(string text)
+        public void PascalCase_DoesConvert_ToKebabCase(string text)
         {
             Expect(text.ConvertCase(Case.KebabCase)).To.Equal("the-quick-brown-fox-jumps");
         }
@@ -32,10 +32,10 @@ namespace DapperDoodle.Tests
             Expect(text.ConvertCase(Case.KebabCase)).To.Equal("the-quick-brown-fox-jumps");
         }
 
-        [TestCase("theQuickBrownFoxJumps")]
+        [TestCase("the-quick-brown-fox-jumps-over")]
         public void KebabCase_DoesConvert_ToPascalCase(string text)
         {
-            Expect(text.ConvertCase(Case.PascalCase)).To.Equal("Thequickbrownfoxjumps");
+            Expect(text.ConvertCase(Case.PascalCase)).To.Equal("TheQuickBrownFoxJumpsOver");
         }
     }
 }

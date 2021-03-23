@@ -31,5 +31,10 @@ namespace DapperDoodle
         {
             return QueryList<T>(this.BuildSelectStatement<T>(table, clause), parameters: parameters);
         }
+        
+        public List<T> BuildSelect<T>(string table, string clause, Case @case, object parameters = null)
+        {
+            return QueryList<T>(this.BuildSelectStatement<T>(table, @case, clause), parameters: parameters);
+        }
     }
 }

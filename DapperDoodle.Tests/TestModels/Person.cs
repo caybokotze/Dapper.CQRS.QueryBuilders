@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.CompilerServices;
 using static PeanutButter.RandomGenerators.RandomValueGen;
 
@@ -9,6 +10,7 @@ namespace DapperDoodle.Tests.TestModels
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
+        public DateTime? DateCreated { get; set; }
 
         public static Person Create()
         {

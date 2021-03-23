@@ -25,30 +25,26 @@ namespace DapperDoodle
         /// <exception cref="ArgumentNullException"></exception>
         public static string ConvertCase(this string value, Case @case)
         {
-            var returnValue = "";
-            
             var
                 context = new ConversionContext(new ConvertToUpperCase(value, @case));
-            returnValue = context.CallConvert();
+            value = context.CallConvert();
             
             context = new ConversionContext(new ConvertToLowerCase(value, @case));
-            returnValue = context.CallConvert();
+            value = context.CallConvert();
             
             context = new ConversionContext(new ConvertToCamelCase(value, @case));
-            returnValue = context.CallConvert();
+            value = context.CallConvert();
 
             context = new ConversionContext(new ConvertToPascalCase(value, @case));
-            returnValue = context.CallConvert();
+            value = context.CallConvert();
 
             context = new ConversionContext(new ConvertToKebabCase(value, @case));
-            returnValue = context.CallConvert();
+            value = context.CallConvert();
 
             context = new ConversionContext(new ConvertToSnakeCase(value, @case));
-            returnValue = context.CallConvert();
+            value = context.CallConvert();
 
-            return @case is Case.IgnoreCase 
-                ? value 
-                : returnValue;
+            return value;
         }
     }
 
