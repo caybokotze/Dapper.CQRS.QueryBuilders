@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using DapperDoodle.Interfaces;
 
-namespace DapperDoodle
+namespace Dapper.CQRS
 {
     public abstract class Query<T> : Query
     {

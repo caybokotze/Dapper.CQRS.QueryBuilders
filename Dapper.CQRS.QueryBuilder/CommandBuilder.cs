@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 using System.Text;
-using DapperDoodle.Exceptions;
+using Dapper.CQRS.Exceptions;
 
-namespace DapperDoodle
+namespace Dapper.CQRS.QueryBuilder
 {
-    public static class CommandBuilders
+    public static class CommandBuilder
     {
         /// <summary>
         /// Default Insert Statement returns a SQL INSERT statement.

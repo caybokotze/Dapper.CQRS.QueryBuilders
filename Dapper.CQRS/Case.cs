@@ -1,7 +1,7 @@
 using System;
 using PeanutButter.Utils;
 
-namespace DapperDoodle
+namespace Dapper.CQRS
 {
     public enum Case
     {

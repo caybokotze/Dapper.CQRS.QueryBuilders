@@ -1,52 +1,36 @@
-﻿using DapperDoodle.Exceptions;
+﻿using System;
 
-namespace DapperDoodle
+namespace Dapper.CQRS.QueryBuilder
 {
-    public interface ICommand
+    public static class CommandBuilderExtensions
     {
-        void Execute();
-    }
-    
-    public abstract class Command<T> : Command
-    {
-        public T Result { get; set; }
-    }
-    
-    public abstract class Command : BaseSqlExecutor, ICommand
-    {
-        public abstract void Execute();
-
-        /// <summary>
-        /// Returns the ID of the Inserted record after inserting the record.
-        /// </summary>
-        /// <param name="parameters">Pass in the arguments or type as an argument that needs to be appended to the sql statement</param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public int BuildInsert<T>(object parameters)
+        public static int BuildInsert<T>(this Command command, object parameters)
         {
-            return QueryFirst<int>(this.BuildInsertStatement<T>(), parameters: parameters);
+            return command.QueryFirst<int>(command.BuildInsertStatement<T>(), parameters);
         }
 
-        public int BuildInsert<T>(object parameters, string table)
+        public static int BuildInsert<T>(this Command command, object parameters, string table)
         {
-            return QueryFirst<int>(this.BuildInsertStatement<T>(table: table), parameters: parameters);
+            return command.QueryFirst<int>(command.BuildInsertStatement<T>(table: table), parameters: parameters);
         }
-        
+
         public int BuildInsert<T>(object parameters, string table, Case @case)
         {
             return QueryFirst<int>(this.BuildInsertStatement<T>(table: table, @case: @case), parameters: parameters);
         }
-        
+
         public int BuildInsert<T>(object parameters, string table, Case @case, object removeParameters)
         {
-            return QueryFirst<int>(this.BuildInsertStatement<T>(table: table, @case: @case, removeParameters: removeParameters), parameters: parameters);
+            return QueryFirst<int>(
+                this.BuildInsertStatement<T>(table: table, @case: @case, removeParameters: removeParameters),
+                parameters: parameters);
         }
-        
+
         public int BuildUpdate<T>(object parameters, string clause)
         {
             return QueryFirst<int>(this.BuildUpdateStatement<T>(table: null, clause: clause), parameters: parameters);
         }
-        
+
         public int BuildUpdate<T>(object parameters, string table, string clause)
         {
             return QueryFirst<int>(this.BuildUpdateStatement<T>(table: table, clause: clause), parameters: parameters);
@@ -77,7 +61,7 @@ namespace DapperDoodle
             }
 
             this.AppendReturnId(sql);
-            
+
             return QueryFirst<int>(sql, parameters);
         }
     }

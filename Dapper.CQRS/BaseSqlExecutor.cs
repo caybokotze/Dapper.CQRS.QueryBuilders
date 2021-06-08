@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using Dapper;
-using DapperDoodle.Interfaces;
+using Dapper.CQRS.Interfaces;
 
-namespace DapperDoodle
+namespace Dapper.CQRS
 {
     public class BaseSqlExecutor
     {
@@ -17,12 +16,12 @@ namespace DapperDoodle
         private IDbConnection _connection;
         public DBMS Dbms { get; set; }
 
-        protected T QueryFirst<T>(string sql, object parameters = null)
+        public T QueryFirst<T>(string sql, object parameters = null)
         {
             return _connection.QueryFirst<T>(sql, parameters);
         }
         
-        protected List<T> QueryList<T>(string sql, object parameters = null)
+        public List<T> QueryList<T>(string sql, object parameters = null)
         {
             return (List<T>)_connection.Query<T>(sql, parameters);
         }

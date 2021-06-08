@@ -22,7 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DapperDoodle\DapperDoodle.csproj" />
+      <ProjectReference Include="..\Dapper.CQRS\Dapper.CQRS.csproj" />
     </ItemGroup>
 
 </Project>

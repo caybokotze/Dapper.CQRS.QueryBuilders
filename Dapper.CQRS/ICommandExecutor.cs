@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DapperDoodle
+namespace Dapper.CQRS
 {
     public interface ICommandExecutor
     {

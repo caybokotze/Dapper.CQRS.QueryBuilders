@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace DapperDoodle.Interfaces
+namespace Dapper.CQRS.Interfaces
 {
     public interface IBaseSqlExecutorOptions
     {

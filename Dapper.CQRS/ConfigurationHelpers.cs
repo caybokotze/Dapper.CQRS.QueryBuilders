@@ -1,10 +1,10 @@
 ﻿using System;
-using DapperDoodle.Interfaces;
+using Dapper.CQRS.Interfaces;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.DependencyInjection;
 using MySql.Data.MySqlClient;
 
-namespace DapperDoodle
+namespace Dapper.CQRS
 {
     public static class ConfigurationHelpers
     {

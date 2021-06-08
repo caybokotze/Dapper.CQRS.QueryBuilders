@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DapperDoodle
+namespace Dapper.CQRS
 {
     public static class DependencyInjectionHelpers
     {

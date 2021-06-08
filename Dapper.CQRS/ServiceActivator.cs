@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DapperDoodle
+namespace Dapper.CQRS
 {
     /// <summary>
     /// The Service Activator acts as a means to fetch an instance of the statically registered IServiceProvider when registered in the IApplicationBuilder instance.

@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Dapper.CQRS;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -43,7 +44,8 @@ namespace DapperDoodle.Tests
                     .GetService<ICommandExecutor>();
                 
                 var actual = GetRandomInt();
-                var expected = commandExecutor.Execute(new CommandInheritor(actual));
+                var expected = commandExecutor?
+                    .Execute(new CommandInheritor(actual));
             
                 Assert.AreEqual(actual, expected);
             }

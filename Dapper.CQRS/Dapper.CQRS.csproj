@@ -20,6 +20,8 @@
         <PackageVersion>1.2.1</PackageVersion>
         <Title>Dapper Doodle</Title>
         <PackageProjectUrl>https://mergedigital.io</PackageProjectUrl>
+        <AssemblyName>Dapper.CQRS</AssemblyName>
+        <RootNamespace>Dapper.CQRS</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

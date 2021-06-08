@@ -1,4 +1,4 @@
-﻿namespace DapperDoodle
+﻿namespace Dapper.CQRS
 {
     public enum DBMS
     {

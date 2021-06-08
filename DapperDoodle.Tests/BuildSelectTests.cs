@@ -1,4 +1,5 @@
 ﻿using System;
+using Dapper.CQRS;
 using DapperDoodle.Tests.TestModels;
 using NExpect;
 using NUnit.Framework;

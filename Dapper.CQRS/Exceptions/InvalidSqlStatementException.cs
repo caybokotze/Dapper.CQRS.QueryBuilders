@@ -1,6 +1,6 @@
 using System;
 
-namespace DapperDoodle.Exceptions
+namespace Dapper.CQRS.Exceptions
 {
     public class InvalidSqlStatementException : ArgumentException
     {

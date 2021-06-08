@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using PluralizeService.Core;
 
-namespace DapperDoodle
+namespace Dapper.CQRS
 {
     public static class BuilderHelpers
     {

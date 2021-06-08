@@ -1,4 +1,5 @@
-﻿using NExpect;
+﻿using Dapper.CQRS;
+using NExpect;
 using static NExpect.Expectations;
 
 using NUnit.Framework;
