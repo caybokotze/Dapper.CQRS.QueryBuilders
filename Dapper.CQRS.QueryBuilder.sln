@@ -1,7 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.CQRS", "Dapper.CQRS\Dapper.CQRS.csproj", "{980AF083-B265-43E0-9DBF-79E7520CDBF3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperDoodle.Tests", "DapperDoodle.Tests\DapperDoodle.Tests.csproj", "{EAC95ECE-2EBA-4B7D-A226-0D90194035A4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.CQRS.QueryBuilder", "Dapper.CQRS.QueryBuilder\Dapper.CQRS.QueryBuilder.csproj", "{E9691702-9B4F-4802-93DB-72533D7F6594}"
@@ -12,10 +10,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{980AF083-B265-43E0-9DBF-79E7520CDBF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{980AF083-B265-43E0-9DBF-79E7520CDBF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{980AF083-B265-43E0-9DBF-79E7520CDBF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{980AF083-B265-43E0-9DBF-79E7520CDBF3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EAC95ECE-2EBA-4B7D-A226-0D90194035A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EAC95ECE-2EBA-4B7D-A226-0D90194035A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAC95ECE-2EBA-4B7D-A226-0D90194035A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
