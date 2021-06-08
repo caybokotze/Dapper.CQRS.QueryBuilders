@@ -11,58 +11,47 @@ namespace Dapper.CQRS.QueryBuilder
 
         public static int BuildInsert<T>(this Command command, object parameters, string table)
         {
-            return command.QueryFirst<int>(command.BuildInsertStatement<T>(table: table), parameters: parameters);
+            return command.QueryFirst<int>(command.BuildInsertStatement<T>(table), parameters);
         }
 
-        public int BuildInsert<T>(object parameters, string table, Case @case)
+        public static int BuildInsert<T>(this Command command, object parameters, string table, Case @case)
         {
-            return QueryFirst<int>(this.BuildInsertStatement<T>(table: table, @case: @case), parameters: parameters);
+            return command.QueryFirst<int>(command.BuildInsertStatement<T>(table, @case), parameters);
         }
 
-        public int BuildInsert<T>(object parameters, string table, Case @case, object removeParameters)
+        public static int BuildInsert<T>(this Command command, object parameters, string table, Case @case, object removeParameters)
         {
-            return QueryFirst<int>(
-                this.BuildInsertStatement<T>(table: table, @case: @case, removeParameters: removeParameters),
-                parameters: parameters);
+            return command.QueryFirst<int>(command.BuildInsertStatement<T>(table, @case, removeParameters), parameters);
         }
 
-        public int BuildUpdate<T>(object parameters, string clause)
+        public static int BuildUpdate<T>(this Command command, object parameters, string clause)
         {
-            return QueryFirst<int>(this.BuildUpdateStatement<T>(table: null, clause: clause), parameters: parameters);
+            return command.QueryFirst<int>(command.BuildUpdateStatement<T>(null, clause), parameters);
         }
 
-        public int BuildUpdate<T>(object parameters, string table, string clause)
+        public static int BuildUpdate<T>(this Command command, object parameters, string table, string clause)
         {
-            return QueryFirst<int>(this.BuildUpdateStatement<T>(table: table, clause: clause), parameters: parameters);
+            return command.QueryFirst<int>(command.BuildUpdateStatement<T>(table, clause), parameters);
         }
 
-        public int BuildUpdate<T>(object parameters)
+        public static int BuildUpdate<T>(this Command command, object parameters)
         {
-            return QueryFirst<int>(this.BuildUpdateStatement<T>(), parameters: parameters);
+            return command.QueryFirst<int>(command.BuildUpdateStatement<T>(), parameters);
         }
 
-        public int BuildDelete<T>(object parameters)
+        public static int BuildDelete<T>(this Command command, object parameters)
         {
-            return QueryFirst<int>(this.BuildDeleteStatement<T>(), parameters: parameters);
+            return command.QueryFirst<int>(command.BuildDeleteStatement<T>(), parameters);
         }
-
-        /// <summary>
-        /// This will automatically append the last inserted id for the record inserted.
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
-        /// <exception cref="InvalidSqlStatementException"></exception>
-        public int InsertAndReturnId(string sql, object parameters = null)
+        
+        public static int InsertAndReturnId(this Command command, string sql, object parameters = null)
         {
             if (sql is null)
             {
                 throw new InvalidSqlStatementException();
             }
 
-            this.AppendReturnId(sql);
-
-            return QueryFirst<int>(sql, parameters);
+            return command.QueryFirst<int>(sql, parameters);
         }
     }
 }

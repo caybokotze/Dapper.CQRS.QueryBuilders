@@ -15,10 +15,5 @@ namespace Dapper.CQRS
     public abstract class Command : BaseSqlExecutor, ICommand
     {
         public abstract void Execute();
-
-        public void Do()
-        {
-            QueryFirst<>();
-        }
     }
 }
