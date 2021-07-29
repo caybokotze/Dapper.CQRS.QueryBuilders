@@ -31,8 +31,8 @@ namespace DapperDoodle.Tests
 
                     webhost.ConfigureServices(config =>
                     {
-                        config
-                            .ConfigureDapperDoodle(null, DBMS.SQLite);
+                        // config
+                        //     .ConfigureDapperDoodle(null, DBMS.SQLite);
                     });
                 });
 
@@ -43,7 +43,8 @@ namespace DapperDoodle.Tests
                     .GetService<IQueryExecutor>();
 
                 var actual = GetRandomInt();
-                var expected = queryExecutor.Execute(new QueryInheritor(actual));
+                var expected = queryExecutor
+                    .Execute(new QueryInheritor(actual));
             
                 Assert.That(expected.Equals(actual));
             }

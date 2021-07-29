@@ -32,8 +32,7 @@ namespace DapperDoodle.Tests
 
                     webhost.ConfigureServices(config =>
                     {
-                        config
-                            .ConfigureDapperDoodle(null, DBMS.SQLite);
+                        // config.(null, DBMS.SQLite);
                     });
                 });
 

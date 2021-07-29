@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Transactions;
 using Dapper.CQRS;
+using Dapper.CQRS.QueryBuilder;
 using DapperDoodle.Tests.TestModels;
 using NExpect;
 using NUnit.Framework;
@@ -105,7 +106,7 @@ namespace DapperDoodle.Tests
             
             public override void Execute()
             {
-                BuildInsert<Person>(_person);
+                this.BuildInsert<Person>(_person);
             }
         }
 

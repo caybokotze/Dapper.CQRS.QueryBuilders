@@ -1,20 +1,39 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageTags>dapper, micro-orm, asp.net, c#, cqrs</PackageTags>
+        <Company>Merge Digital</Company>
+        <LangVersion>latest</LangVersion>
+        <Title>Ntk8</Title>
+        <Authors>Caybo Kotze</Authors>
+        <Description>Dapper.CQRS.QueryBuilders is a wrapper for Dapper.CQRS to build up sql queries dynamically.</Description>
+        <Copyright>A product of Merge Digital</Copyright>
+        <PackageIcon>dapper_mouse.png</PackageIcon>
+        <RespositoryUrl>https://github.com/caybokotze/Dapper.CQRS.QueryBuilders.git</RespositoryUrl>
+        <RepositoryType>github</RepositoryType>
+        <Authors>Caybo Kotzé</Authors>
+        <PackageReleaseNotes>Initial Release, Not well tested yet.</PackageReleaseNotes>
+        <PackageLicenseFile>license.txt</PackageLicenseFile>
+        <PackageVersion>1.0.0</PackageVersion>
+        <AssemblyName>Dapper.CQRS.QueryBuilders</AssemblyName>
+        <RootNamespace>Dapper.CQRS.QueryBuilders</RootNamespace>
+        <TargetFrameworks>net5.0;netstandard2.1</TargetFrameworks>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Dapper.CQRS\Dapper.CQRS.csproj" />
+      <None Include="license.txt">
+        <Pack>True</Pack>
+          <PackagePath></PackagePath>
+      </None>
+      <None Include="dapper_mouse.png">
+        <Pack>True</Pack>
+          <PackagePath></PackagePath>
+      </None>
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="license.txt">
-        <Pack>True</Pack>
-      </None>
-      <None Update="dapper_mouse.png">
-        <Pack>True</Pack>
-      </None>
+      <PackageReference Include="Dapper.CQRS" Version="1.1.0" />
     </ItemGroup>
 
 </Project>

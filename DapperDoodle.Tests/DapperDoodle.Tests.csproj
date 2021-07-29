@@ -11,6 +11,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Dapper.CQRS" Version="1.1.0" />
         <PackageReference Include="Faker.Net" Version="1.5.126" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="5.0.4" />
         <PackageReference Include="NExpect" Version="1.0.198" />
@@ -22,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Dapper.CQRS\Dapper.CQRS.csproj" />
+      <ProjectReference Include="..\Dapper.CQRS.QueryBuilder\Dapper.CQRS.QueryBuilder.csproj" />
     </ItemGroup>
 
 </Project>
