@@ -1,12 +1,12 @@
 ﻿using System;
-using Dapper.CQRS;
-using DapperDoodle.Tests.TestModels;
+using Dapper.CQRS.QueryBuilder.Tests.TestModels;
+using Dapper.CQRS.QueryBuilders;
 using NExpect;
 using NUnit.Framework;
 using static NExpect.Expectations;
 using static PeanutButter.RandomGenerators.RandomValueGen;
 
-namespace DapperDoodle.Tests
+namespace Dapper.CQRS.QueryBuilder.Tests
 {
     [TestFixture]
     public class BuildSelectTests

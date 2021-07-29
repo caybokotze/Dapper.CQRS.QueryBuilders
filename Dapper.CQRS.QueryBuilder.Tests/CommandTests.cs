@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Transactions;
-using Dapper.CQRS;
-using Dapper.CQRS.QueryBuilder;
-using DapperDoodle.Tests.TestModels;
+using Dapper.CQRS.QueryBuilder.Tests.TestModels;
+using Dapper.CQRS.QueryBuilders;
 using NExpect;
 using NUnit.Framework;
 using static NExpect.Expectations;
 
-namespace DapperDoodle.Tests
+namespace Dapper.CQRS.QueryBuilder.Tests
 {
     [TestFixture]
     public class CommandTests

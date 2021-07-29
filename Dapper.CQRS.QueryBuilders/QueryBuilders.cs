@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Text;
 using Dapper.CQRS.Exceptions;
 
-namespace Dapper.CQRS
+namespace Dapper.CQRS.QueryBuilders
 {
     public static class QueryBuilders
     {

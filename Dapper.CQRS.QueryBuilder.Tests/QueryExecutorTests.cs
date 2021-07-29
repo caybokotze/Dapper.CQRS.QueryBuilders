@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using Dapper.CQRS;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
@@ -8,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using NUnit.Framework;
 using static PeanutButter.RandomGenerators.RandomValueGen;
 
-namespace DapperDoodle.Tests
+namespace Dapper.CQRS.QueryBuilder.Tests
 {
     [TestFixture]
     public class QueryExecutorTests

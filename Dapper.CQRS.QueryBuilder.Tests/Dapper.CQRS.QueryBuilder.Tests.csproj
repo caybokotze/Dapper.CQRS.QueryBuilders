@@ -5,8 +5,6 @@
 
         <IsPackable>false</IsPackable>
 
-        <RootNamespace>DapperDoodle.Tests</RootNamespace>
-
         <LangVersion>9</LangVersion>
     </PropertyGroup>
 
@@ -23,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Dapper.CQRS.QueryBuilder\Dapper.CQRS.QueryBuilder.csproj" />
+      <ProjectReference Include="..\Dapper.CQRS.QueryBuilders\Dapper.CQRS.QueryBuilders.csproj" />
     </ItemGroup>
 
 </Project>

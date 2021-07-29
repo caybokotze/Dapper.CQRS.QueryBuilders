@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Dapper.CQRS.QueryBuilder
+﻿namespace Dapper.CQRS.QueryBuilders
 {
     public static class CommandBuilderExtensions
     {

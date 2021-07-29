@@ -1,4 +1,4 @@
-namespace DapperDoodle.Tests
+namespace Dapper.CQRS.QueryBuilder.Tests
 {
     public class QueryTests
     {
