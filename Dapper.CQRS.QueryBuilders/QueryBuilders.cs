@@ -35,13 +35,8 @@ namespace Dapper.CQRS.QueryBuilders
 
             if (removeParameters != null)
             {
-                var type = removeParameters.GetType();
-                var props = new List<PropertyInfo>(type.GetProperties());
-
-                foreach (var prop in props)
-                {
-                    dt.Columns.Remove(prop.Name);
-                }
+                var props = removeParameters.GetObjectProperties();
+                dt.RemovePropertiesFromDatatable(props);
             }
 
             foreach (DataColumn column in dt.Columns)
